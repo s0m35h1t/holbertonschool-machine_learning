@@ -10,6 +10,6 @@ def add_arrays(arr1, arr2):
     Returns:
         list: n-size array
     """
-    if len(arr1) != len(arr2 or arr1 is None or arr2 is None):
+    if len(arr1) != len(arr2):
         return None
-    return [sum([arr1[i] + arr2[i]]) for i in range(len(arr1))]
+    return [[arr1[i] + arr2[i]] for i in range(len(arr1))]
