@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-'''Matrix Shape'''
+"""Matrix Shape"""
 
 
 def matrix_shape(matrix):
@@ -9,5 +9,5 @@ def matrix_shape(matrix):
     Returns:
         list: shape of the matrix
     """
-    return [len(i) for i in [matrix, matrix[0]] +
-            ([matrix[0][0]] if len(matrix[0]) > 2 else [])]
+    res = [len(i) for i in [matrix, matrix[0]]]
+    return res if len(matrix[0]) <= 2 else res + [len(matrix[0][0])]
