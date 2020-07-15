@@ -9,5 +9,7 @@ def matrix_shape(matrix):
     Returns:
         list: shape of the matrix
     """
-    res = [len(i) for i in [matrix, matrix[0]]]
-    return res if len(matrix[0]) <= 2 else res + [len(matrix[0][0])]
+    if type(matrix[0]) is not list:
+        return [len(matrix)]
+    else:
+        return [len(matrix)] + matrix_shape(matrix[0])
