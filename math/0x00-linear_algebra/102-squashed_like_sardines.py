@@ -19,9 +19,9 @@ def m_shape(matrix):
 def rec_cat(mat1, mat2, axis, i):
     """Concat two matrices recrusive way
     Args;
-        mat1 : Matrix 1 
-        mat2 :  Matrix 2
-        axis :  aixs to concat belong
+        mat1 : Matrix 1
+        mat2 : Matrix 2
+        axis : aixs to concat belong
         i : depth
     """
     M = []
