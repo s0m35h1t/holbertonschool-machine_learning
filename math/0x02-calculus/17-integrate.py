@@ -10,10 +10,9 @@ def poly_integral(poly, C=0):
     Returns
         (list): list of coefficients
     """
-    if poly is None or not all(type(C) in (float, int) for c in poly):
+    if not all(type(C) in (float, int) for c in poly) or type(C) is not int:
         return None
-    if type(C) is not int:
-        return
+
     integral = [coeff/a if coeff % a != 0 else coeff //
                 a for a, coeff in enumerate(poly, 1)]
     while len(integral) > 0 and integral[-1] == 0:
