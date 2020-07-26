@@ -12,7 +12,6 @@ def poly_integral(poly, C=0):
     """
     if not all(type(C) in (float, int) for c in poly) or type(C) is not int:
         return None
-
     integral = [c/a if c % a != 0 else c//a for a, c in enumerate(poly, 1)]
     while len(integral) > 0 and integral[-1] == 0:
         integral.pop()
