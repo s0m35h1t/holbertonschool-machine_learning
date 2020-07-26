@@ -16,6 +16,6 @@ def poly_derivative(poly):
     _, *poly = poly
     if any(poly):
         derivative = [p * c for p, c in enumerate(poly, 1)]
-        if derivative == 0:
+        if derivative == []:
             return [0]
         return derivative
