@@ -8,7 +8,6 @@ def poly_derivative(poly):
         poly (list): polynomial list
     Returns:
         (list) list of coefficients, derivatives of polynomial
-
     """
     if poly is None or not type(poly) is list:
         return None
@@ -18,5 +17,5 @@ def poly_derivative(poly):
     if any(poly):
         derivative = [p * c for p, c in enumerate(poly, 1)]
         if derivative == 0:
-            derivative = [0]
+            return [0]
         return derivative
