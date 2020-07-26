@@ -13,7 +13,7 @@ def poly_derivative(poly):
         return None
     if len(poly) == 0 or type(poly[0]) is not int:
         return None
-    _unused, *poly = poly
+    _, *poly = poly
     if any(poly):
         derivative = [p * c for p, c in enumerate(poly, 1)]
         if derivative == 0:
