@@ -15,8 +15,7 @@ def poly_derivative(poly):
         return None
     if type(poly[0]) is not int:
         return None
-    if any(poly):
-        derivative = [poly[c] * c for c in range(1, len(poly))]
-        if derivative == []:
-            derivative = [0]
-        return derivative
+    derivative = [poly[c] * c for c in range(1, len(poly))]
+    if derivative == []:
+        derivative = [0]
+    return derivative
