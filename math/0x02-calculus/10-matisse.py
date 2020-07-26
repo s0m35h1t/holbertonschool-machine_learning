@@ -16,5 +16,5 @@ def poly_derivative(poly):
     if any(poly):
         derivative = [poly[c] * c for c in range(1, len(poly))]
         if derivative == []:
-            return [0]
+            derivative = [0]
         return derivative
