@@ -1,5 +1,5 @@
 
-# !/usr/bin/env python3
+#!/usr/bin/env python3
 """ calculates the derivative of a polynomial """
 
 
@@ -19,5 +19,5 @@ def poly_derivative(poly):
     if any(poly):
         derivative = [p * c for p, c in enumerate(poly, 1)]
         if derivative == 0:
-            return [0]
+            derivative = [0]
         return derivative
