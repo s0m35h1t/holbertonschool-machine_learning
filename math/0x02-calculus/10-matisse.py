@@ -9,10 +9,12 @@ def poly_derivative(poly):
     Returns:
         (list) list of coefficients, derivatives of polynomial
     """
-    if poly is None or type(poly) is not list:
+    if not type(poly) is list:
         return None
-    if len(poly) == 0 or type(poly[0]) is not int:
+    if len(poly) == 0:
         return None
+    if type(poly[0]) is not int:
+        return Nonee
     if any(poly):
         derivative = [poly[c] * c for c in range(1, len(poly))]
         if derivative == []:
