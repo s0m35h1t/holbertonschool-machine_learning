@@ -43,7 +43,7 @@ class Binomial:
     def pmf(self, k):
         """ calculates PMF for a given number of successes
         Args:
-            k (int):s the number of “successes” 
+            k (int):s the number of “successes”
         Returns:
             (float) the PMF value for k
         """
@@ -56,7 +56,7 @@ class Binomial:
     def cdf(self, k):
         """ calculates value of CDF for given number of successes
         Args:
-            k (int):s the number of “successes” 
+            k (int):s the number of “successes”
         Returns:
             (float) the PMF value for k
         """
