@@ -9,6 +9,8 @@ def fact(n):
     Returns:
         (int) n factorial
     """
+    if n < 0:
+        return None
     if n == 0:
         return 1
     if n < 2:
