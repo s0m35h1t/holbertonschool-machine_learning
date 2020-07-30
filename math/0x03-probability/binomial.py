@@ -62,5 +62,6 @@ class Binomial:
         """
         if k > self.n or k < 0:
             return 0
-        sum = sum([self.pmf(i) for i in range(0, int(k) + 1)])
-        return sum if sum else  0
+        sum = 0
+        [sum:= sum + self.pmf(i) for i in range(0, int(k) + 1)]
+        return sum
