@@ -54,7 +54,6 @@ class Neuron:
         Returns:
             the cost
         """
-        costsum = 0
         return -(Y * np.log(A) + (1 - Y) * np.log(1.0000001 - A)).mean()
 
     def evaluate(self, X, Y):
