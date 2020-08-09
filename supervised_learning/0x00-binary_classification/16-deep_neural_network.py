@@ -3,14 +3,13 @@
 
 
 import numpy as np
-import matplotlib.pyplot as plt
 
 
 class DeepNeuralNetwork:
-    """ deep neural network class """
+    """ Deep neural network class """
 
     def __init__(self, nx, layers):
-        """ DEep Neural Network init
+        """ Deep Neural Network init
         Args:
             nx (int): number of input features
             layers (list): number of nodes in each layer of the network
