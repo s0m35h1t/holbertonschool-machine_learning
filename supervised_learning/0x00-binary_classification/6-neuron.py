@@ -89,13 +89,13 @@ class Neuron:
         """ Trains the neuron """
         if type(iterations) is not int:
             raise TypeError("iterations must be an integer")
-        if iteractions <= 0:
+        if iterations <= 0:
             raise ValueError("iterations must be a positive integer")
         if type(alpha) is not float:
             raise TypeError("alpha must be a float")
         if alpha <= 0:
             raise ValueError("alpha must be positive")
-        for i in range(iterations):
-            self.forward_prop(X)
-            self.gradient_descent(X, Y, self.__A, alpha)
+        while iterations > 0:
+            self.gradient_descent(X, Y, self.forward_prop(X), alpha)
+            iterations -= 1
         return self.evaluate(X, Y)
