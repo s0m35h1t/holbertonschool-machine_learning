@@ -72,9 +72,15 @@ class Neuron:
     def gradient_descent(self, X, Y, A, alpha=0.5):
         """Calculates pass of gradient descent on the neuron
         Args:
+            X (numpy.ndarray): (nx, m) that contains the input data
+            Y (numpy.ndarray): (1, m) that contains the correct labels
+                               for the input data
+            A (numpy.ndarray): (1, m) containing the activated output
+                                of the neuron for each example
+            Alpha (float): is the learning rate
         Returns:
             (None): Updates the private attributes __W and __b
         """
-        self.__W = self.__W - \
-            (alpha * (np.sum(X * (A - Y), axis=1) / X.shape[1]))
-        self.__b = self.__b - (alpha * (np.sum(A - Y) / X.shape[1]))
+        self.__W[0] = (self.__W[0] - alpha *
+                       np.dot(X, (A - Y).T).T[0] / X.shape[1])
+        self.__b -= alpha * (A[0] - Y[0]).mean()
