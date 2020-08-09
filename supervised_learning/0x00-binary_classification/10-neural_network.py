@@ -52,8 +52,8 @@ class NeuralNetwork:
 
     def forward_prop(self, X):
         """calculates forward propagation for neural network
-        Args: 
-            X (numpy.ndarray): (nx, m) that contains the input data 
+        Args:
+            X (numpy.ndarray): (nx, m) that contains the input data
         Retruns:
             the private attributes __A1 and __A2, respectively
         """
