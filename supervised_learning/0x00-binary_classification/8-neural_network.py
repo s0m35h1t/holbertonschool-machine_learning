@@ -16,10 +16,11 @@ class NeuralNetwork:
             raise ValueError("nx must be a positive integer")
         if type(nodes) is not int:
             raise TypeError("nodes must be an integer")
-        self.W1 = np.ndarray((nodes, nx))
-        self.W1 = np.random.normal(size=(nodes, nx))
-        self.W2 = np.ndarray((1, nodes))
-        self.b1 = np.zeros((nodes, 1))
-        self.b2 = 0
-        self.A1 = 0
-        self.A2 = 0
+        self.__W1 = np.ndarray((nodes, nx))
+        self.__W1 = np.random.normal(size=(nodes, nx))
+        self.__W2 = np.ndarray((1, nodes))
+        self.__W2[0] = np.random.normal(size=nodes)
+        self.__b1 = np.zeros((nodes, 1))
+        self.__b2 = 0
+        self.__A1 = 0
+        self.__A2 = 0
