@@ -28,16 +28,3 @@ class DeepNeuralNetwork:
         for i in range(1, self.L):
             self.weights[("W{}".format(i+1))] = np.random.randn(layers[i], layers[i-1]) * np.sqrt(2/layers[i-1])
             self.weights[("b{}".format(i+1))] = np.zeros((layers[i], 1))
-
-
-lib_train = np.load('Binary_Train.npz')
-X_3D, Y = lib_train['X'], lib_train['Y']
-X = X_3D.reshape((X_3D.shape[0], -1)).T
-
-np.random.seed(0)
-deep = DeepNeuralNetwork(X.shape[0], [5, 3, 1])
-print(deep.cache)
-print(deep.weights)
-print(deep.L)
-deep.L = 10
-print(deep.L)
