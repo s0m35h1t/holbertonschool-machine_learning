@@ -98,7 +98,7 @@ class NeuralNetwork:
         Returns:
             (None): Updates the private attributes __W and __b
         """
-        dz1 = np.dot(self.__W2.T, dz2) * A1 * (1 - A1)
+        dz1 = np.dot(self.__W2.T, (A2 - Y)) * A1 * (1 - A1)
         dz2 = (A2 - Y)
         self.__W2 -= alpha * np.dot(dz2, A1.T) / A1.shape[1]
         self.__b2 -= alpha * dz2.mean(axis=1, keepdims=True)
