@@ -63,7 +63,7 @@ class Neuron:
             Y (numpy.ndarray ):  (1, m) that contains the correct
                                 labels for the input data
         Returns:
-            the neuron’s prediction and the cost of the network
+            the neuron s prediction and the cost of the network
         """
         A = np.ndarray((1, X.shape[1]))
         A[0] = self.forward_prop(X)
