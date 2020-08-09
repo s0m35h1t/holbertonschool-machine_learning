@@ -64,7 +64,7 @@ class NeuralNetwork:
         return self.__A1, self.__A2
 
     def cost(self, Y, A):
-        """calculates cost of the neural network
+        """Calculates cost of the neural network
                 Args:
             Y (numpy.ndarray): (1, m) that contains the correct labels
                                       for the input data
