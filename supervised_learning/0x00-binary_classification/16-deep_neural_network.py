@@ -14,14 +14,15 @@ class DeepNeuralNetwork:
             nx (int): number of input features
             layers (list): number of nodes in each layer of the network
         """
-        if not isinstance(nx, int):
-            raise TypeError("nx must be a integer")
+        if type(nx) is not int:
+            raise TypeError("nx must be an integer")
         if nx < 1:
-            raise ValueError("nx must be positive")
-        if not isinstance(layers, list):
+            raise ValueError("nx must be a positive integer")
+        if t ype(layers) is not list or len(layers) < 1:
             raise TypeError("layers must be a list of positive integers")
-        if min(layers) < 1:
-            raise TypeError("layers must be a list of positive integers")
+        for layer in layers:
+            if type(layer) is not int or layer < 1:
+                raise TypeError("layers must be a list of positive integers")
         self.L = len(layers)
         self.cache = {}
         self.weights = {"W1": np.random.randn(
