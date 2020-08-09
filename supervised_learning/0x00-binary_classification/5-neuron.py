@@ -16,7 +16,6 @@ class Neuron:
         if nx < 1:
             raise ValueError("nx must be a positive integer")
         self.__W = np.random.randn(1, nx)
-        self.__W[0] = np.random.normal(size=nx)
         self.__b = 0
         self.__A = 0
 
@@ -73,12 +72,6 @@ class Neuron:
     def gradient_descent(self, X, Y, A, alpha=0.5):
         """Calculates pass of gradient descent on the neuron
         Args:
-            X (numpy.ndarray): (nx, m) that contains the input data
-            Y (numpy.ndarray): (1, m) that contains the correct labels
-                               for the input data
-            A (numpy.ndarray): (1, m) containing the activated output
-                                of the neuron for each example
-            Alpha (float): is the learning rate
         Returns:
             (None): Updates the private attributes __W and __b
         """
