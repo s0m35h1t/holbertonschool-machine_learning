@@ -75,10 +75,9 @@ class NeuralNetwork:
         """
         return -(Y * np.log(A) + (1 - Y) * np.log(1.0000001 - A)).mean()
 
-
     def evaluate(self, X, Y):
         """Evalutes the neural network
-                Args:
+        Args:
             X (numpy.ndarray ): (nx, m) that contains the input data
             Y (numpy.ndarray ):  (1, m) that contains the correct
                                 labels for the input data
