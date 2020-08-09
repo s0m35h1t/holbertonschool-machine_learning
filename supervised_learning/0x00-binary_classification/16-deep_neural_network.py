@@ -3,7 +3,7 @@
 
 
 import numpy as np
-
+import matplotlib.pyplot as plt
 
 class DeepNeuralNetwork:
     """ deep neural network class """
@@ -25,9 +25,7 @@ class DeepNeuralNetwork:
 
         self.L = len(layers)
         self.cache = {}
-        self.weights = {"W1": np.random.randn(
-            layers[0], nx), "b1": np.zeros((layers[0], 1))}
+        self.weights = {"W1": np.random.randn(layers[0], nx), "b1": np.zeros((layers[0], 1))}
         for i in range(1, self.L):
-            self.weights[("W{}".format(i+1))] = np.random.randn(layers[i],
-                                                                layers[i-1]) * np.sqrt(2/layers[i-1])
+            self.weights[("W{}".format(i+1))] = np.random.randn(layers[i], layers[i-1]) * np.sqrt(2/layers[i-1])
             self.weights[("b{}".format(i+1))] = np.zeros((layers[i], 1))
