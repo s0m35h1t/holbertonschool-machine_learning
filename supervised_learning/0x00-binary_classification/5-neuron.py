@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env
 """Define: Neuron class => single neuron performing binary classification"""
 
 import numpy as np
