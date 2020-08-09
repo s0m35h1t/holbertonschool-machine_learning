@@ -81,9 +81,10 @@ class Neuron:
         Returns:
             (None): Updates the private attributes __W and __b
         """
-        self.__W = self.__W - \
-            (alpha * (np.sum(X * (A - Y), axis=1) / X.shape[1]))
-        self.__b = self.__b - (alpha * (np.sum(A - Y) / X.shape[1]))
+        dW = np.sum(X * (A - Y), axis=1) / X.shape[1]
+        db = np.sum((A - Y)) / X.shape[1]
+        self.__W = self.__W - (alpha * dW)
+        self.__b = self.__b - (alpha * db)
 
     def train(self, X, Y, iterations=5000, alpha=0.05):
         """ Trains the neuron """
