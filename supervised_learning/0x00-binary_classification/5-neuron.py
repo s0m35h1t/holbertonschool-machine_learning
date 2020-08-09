@@ -81,6 +81,11 @@ class Neuron:
         Returns:
             (None): Updates the private attributes __W and __b
         """
-        self.__W = (self.__W - alpha *
-                    np.dot(X, (A - Y).T).T[0] / X.shape[1])
-        self.__b -= alpha * (A[0] - Y[0]).mean()
+        m = X.shape[1]
+        dZ = A - Y
+        dW = np.sum(X * dZ, axis=1)
+        db = np.sum(dZ)
+        dW /= m
+        db /= m
+        self.__W = self.__W - (alpha * dW)
+        self.__b = self.__b - (alpha * db)
