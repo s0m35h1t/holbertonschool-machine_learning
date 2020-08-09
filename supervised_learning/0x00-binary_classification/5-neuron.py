@@ -63,7 +63,7 @@ class Neuron:
             Y (numpy.ndarray ):  (1, m) that contains the correct
                                 labels for the input data
         Returns:
-            the neuron's prediction and the cost of the network
+            the neuron s prediction and the cost of the network
         """
         A = np.ndarray((1, X.shape[1]))
         A[0] = self.forward_prop(X)
@@ -81,9 +81,7 @@ class Neuron:
         Returns:
             (None): Updates the private attributes __W and __b
         """
-        # self.__W = self.__W - \
-        #     (alpha * (np.sum(X * (A - Y), axis=1) / X.shape[1]))
-        # self.__b = self.__b - (alpha * (np.sum(A - Y) / X.shape[1]))
-        self.__W[0] = (self.__W[0] - alpha *
-                np.dot(X, (A - Y).T).T[0] / X.shape[1])
-        self.__b -= alpha * (A[0] - Y[0]).mean()
+        self.__W = self.__W - \
+            (alpha * (np.sum(X * (A - Y), axis=1) / X.shape[1]))
+        self.__b = self.__b - (alpha * (np.sum(A - Y) / X.shape[1]))
+
