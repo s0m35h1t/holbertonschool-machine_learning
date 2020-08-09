@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-
 """Define: Neuron class => single neuron performing binary classification"""
+
 import numpy as np
 
 
@@ -41,7 +41,7 @@ class Neuron:
         Returns:
             the private attribute __A
         """
-        self.__A = 1 / (1 + np.exp(-1 * (np.dot(self.__W, X) + self.__b)))
+        self.__A = 1 / (1 + np.exp(-1 * (np.matmul(self.__W, X) + self.__b)))
         return self.__A
 
     def cost(self, Y, A):
@@ -81,8 +81,8 @@ class Neuron:
         Returns:
             (None): Updates the private attributes __W and __b
         """
-        self.__W = (self.__W - alpha *
-                    np.dot(X, (A - Y).T).T[0] / X.shape[1])
+        self.__W[0] = (self.__W[0] - alpha *
+                       np.dot(X, (A - Y).T).T[0] / X.shape[1])
         self.__b -= alpha * (A[0] - Y[0]).mean()
 
     def train(self, X, Y, iterations=5000, alpha=0.05):
