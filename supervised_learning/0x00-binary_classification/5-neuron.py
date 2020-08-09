@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Define: Neuron class => single neuron performing binary classification"""
 
+"""Define: Neuron class => single neuron performing binary classification"""
 import numpy as np
 
 
