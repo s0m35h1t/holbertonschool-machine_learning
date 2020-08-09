@@ -41,5 +41,5 @@ class Neuron:
         Returns:
             the private attribute __A
         """
-        self.__A = 1 / (1 + np.exp(-1 * (np.dot(self.__W, X) + self.__b)))
+        self.__A = 1 / (1 + np.exp(-1 * (np.matmul(self.__W, X) + self.__b)))
         return self.__A
