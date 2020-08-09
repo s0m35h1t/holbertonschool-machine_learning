@@ -84,4 +84,3 @@ class Neuron:
         self.__W = self.__W - \
             (alpha * (np.sum(X * (A - Y), axis=1) / X.shape[1]))
         self.__b = self.__b - (alpha * (np.sum(A - Y) / X.shape[1]))
-
