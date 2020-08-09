@@ -16,7 +16,6 @@ class Neuron:
         if nx < 1:
             raise ValueError("nx must be a positive integer")
         self.__W = np.random.randn(1, nx)
-        self.__W[0] = np.random.normal(size=nx)
         self.__b = 0
         self.__A = 0
 
@@ -82,6 +81,6 @@ class Neuron:
         Returns:
             (None): Updates the private attributes __W and __b
         """
-        self.__W[0] = (self.__W[0] - alpha *
-                       np.dot(X, (A - Y).T).T[0] / X.shape[1])
+        self.__W = (self.__W - alpha *
+                    np.dot(X, (A - Y).T).T[0] / X.shape[1])
         self.__b -= alpha * (A[0] - Y[0]).mean()
