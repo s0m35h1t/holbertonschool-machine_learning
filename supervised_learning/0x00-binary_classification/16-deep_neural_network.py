@@ -12,7 +12,7 @@ class DeepNeuralNetwork:
         """ DEep Neural Network init
         Args:
             nx (int): number of input features
-            layers (list): number of nodes in each layer of the network 
+            layers (list): number of nodes in each layer of the network
         """
         if type(nx) is not int:
             raise TypeError("nx must be an integer")
