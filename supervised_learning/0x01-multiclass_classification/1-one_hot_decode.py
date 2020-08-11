@@ -8,7 +8,7 @@ import numpy as np
 def one_hot_decode(one_hot):
     """ Decode one-hot coded numpy.ndarray with shape
     Args:
-        one_hot (numpy.ndarray): M with shape (classes, m) 
+        one_hot (numpy.ndarray): M with shape (classes, m)
     Retruns:
         numpy.ndarray with shape (m, ) containing
         the numeric labels for each example, or None on failure
