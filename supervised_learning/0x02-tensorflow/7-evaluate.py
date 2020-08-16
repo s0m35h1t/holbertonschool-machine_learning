@@ -16,7 +16,8 @@ def evaluate(X, Y, save_path):
     """
     sess = tf.Session()
     s = tf.train.import_meta_graph(
-        save_path + '.meta').restore(sess, save_path)
+        save_path + '.meta')
+    s.restore(sess, save_path)
 
     graph = tf.get_default_graph()
 
