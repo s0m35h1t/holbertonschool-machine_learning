@@ -29,39 +29,4 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes,
     Returns:
         the path where the model was saved
     """
-    x, y = create_placeholders(X_train.shape[1], Y_train.shape[1])
-    y_pred = forward_prop(x, layer_sizes, activations)
-    loss = calculate_loss(y, y_pred)
-    accuracy = calculate_accuracy(y, y_pred)
-    train = create_train_op(loss, alpha)
-    s = tf.Session()
-    s.run(tf.global_variables_initializer())
-    s.run(tf.local_variables_initializer())
-    for i in range(0, iterations):
-        if not i % 100:
-            print('After {} iterations:'.format(iters))
-            trainloss, trainaccuracy = s.run((loss, accuracy),
-                                             feed_dict={x: X_train,
-                                                        y: Y_train})
-            print('\tTraining Cost:', trainloss)
-            print('\tTraining Accuracy:', trainaccuracy)
-            validloss, validaccuracy = s.run((loss, accuracy),
-                                             feed_dict={x, X_valid,
-                                                        y: Y_valid})
-            print('\tValidation Cost:', validloss)
-            print('\tValidation Accuracy:', validaccuracy)
-        s.run(train, feed_dict={x: X_train, y: Y_train})
-    if not iterations % 100:
-        print('After {} iterations:'.format(iterations))
-        trainloss, trainaccuracy = s.run((loss, accuracy),
-                                         feed_dict={x: X_train,
-                                                    y: Y_train})
-        print('\tTraining Cost:', trainloss)
-        print('\tTraining Accuracy:', trainaccuracy)
-        validloss, validaccuracy = s.run((loss, accuracy),
-                                         feed_dict={x: X_valid,
-                                                    y: Y_valid})
-        print('\tValidation Cost:', validloss)
-        print('\tValidation Accuracy:', validaccuracy)
-    saver = tf.train.Saver()
-    return saver.save(s, save_path)
+    pass
