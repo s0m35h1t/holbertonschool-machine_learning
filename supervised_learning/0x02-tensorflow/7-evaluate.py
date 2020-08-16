@@ -14,17 +14,18 @@ def evaluate(X, Y, save_path):
     Returns:
         the network’s prediction, accuracy, and loss, respectively
     """
-    session = tf.Session()
-    saver = tf.train.import_meta_graph(save_path + '.meta')
-    saver.restore(sess, save_path)
+    with tf.Session() as session:
+        saver = tf.train.import_meta_graph("{}.meta".format(save_path))
+        saver.restore(session, save_path)
 
-    graph = tf.get_default_graph()
-    
-    y_pred = graph.get_tensor_by_name("layer_2/BiasAdd:0")
-    acc = graph.get_tensor_by_name("Mean:0")
-    loss = graph.get_tensor_by_name("softmax_cross_entropy_loss/value:0")
+        x = tf.get_collection("x")[0]
+        y = tf.get_collection("y")[0]
+        y_pred = tf.get_collection("y_pred")[0]
+        acc = tf.get_collection("accuracy")[0]
+        loss = tf.get_collection("loss")[0]
 
-    x = graph.get_tensor_by_name("x:0")
-    y = graph.get_tensor_by_name("y:0")
+        eval_y_pred = session.run(y_pred, feed_dict={x: X, y: Y})
+        eval_accuracy = session.run(accuracy, feed_dict={x: X, y: Y})
+        eval_loss = session.run(loss, feed_dict={x: X, y: Y})
 
-    return sess.run((y_pred, acc, loss), feed_dict={x: X, y: Y})
+        return eval_y_pred, eval_accuracy, eval_losss
