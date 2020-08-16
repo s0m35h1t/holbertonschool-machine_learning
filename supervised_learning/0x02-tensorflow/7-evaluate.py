@@ -14,18 +14,18 @@ def evaluate(X, Y, save_path):
     Returns:
         the network’s prediction, accuracy, and loss, respectively
     """
-    with tf.Session() as session:
-        saver = tf.train.import_meta_graph("{}.meta".format(save_path))
-        saver.restore(session, save_path)
+    session = tf.Session()
+    saver = tf.train.import_meta_graph("{}.meta".format(save_path))
+    saver.restore(session, save_path)
 
-        x = tf.get_collection("x")[0]
-        y = tf.get_collection("y")[0]
-        y_pred = tf.get_collection("y_pred")[0]
-        acc = tf.get_collection("accuracy")[0]
-        loss = tf.get_collection("loss")[0]
+    x = tf.get_collection("x")[0]
+    y = tf.get_collection("y")[0]
+    y_pred = tf.get_collection("y_pred")[0]
+    acc = tf.get_collection("accuracy")[0]
+    loss = tf.get_collection("loss")[0]
 
-        eval_y_pred = session.run(y_pred, feed_dict={x: X, y: Y})
-        eval_accuracy = session.run(accuracy, feed_dict={x: X, y: Y})
-        eval_loss = session.run(loss, feed_dict={x: X, y: Y})
+    eval_y_pred = session.run(y_pred, feed_dict={x: X, y: Y})
+    eval_accuracy = session.run(accuracy, feed_dict={x: X, y: Y})
+    eval_loss = session.run(loss, feed_dict={x: X, y: Y})
 
-        return eval_y_pred, eval_accuracy, eval_losss
+    return eval_y_pred, eval_accuracy, eval_losss
