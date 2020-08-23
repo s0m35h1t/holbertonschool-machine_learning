@@ -4,7 +4,8 @@
 
 
 def update_variables_momentum(alpha, beta1, var, grad, v):
-    """updates a variable using the gradient descent with momentum optimization
+    """updates a variable using the gradient descent
+    ``with momentum optimization
     Args:
         alpha is the learning rate
         beta1 is the momentum weight
