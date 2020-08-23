@@ -9,7 +9,7 @@ def shuffle_data(X, Y):
     """Shuffle data in two matrices
     Args:
         X (numpy.ndarray): of shape (m, nx) to shuffle
-        Y (numpy.ndarray): of shape (m, ny) to shuffle 
+        Y (numpy.ndarray): of shape (m, ny) to shuffle
     Returns:
         the shuffled X and Y matrices
     """
