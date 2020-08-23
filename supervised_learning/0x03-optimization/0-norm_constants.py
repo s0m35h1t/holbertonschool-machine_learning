@@ -12,4 +12,4 @@ def normalization_constants(X):
     Returns:
         the mean and variance of each feature
     """
-    return np.mean(X, axis=0), np.mean((X-mean)**2, axis=0)
+    return X.mean(axis=0), X.std(axis=0)
