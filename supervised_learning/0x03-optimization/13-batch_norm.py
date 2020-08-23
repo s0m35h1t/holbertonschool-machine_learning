@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Script to normalize a batch for a DNN"""
+"""normalizes an unactivated output of a neural
+network using batch normalization"""
 
 import numpy as np
 
