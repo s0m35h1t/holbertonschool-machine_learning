@@ -23,21 +23,21 @@ def dropout_forward_prop(X, weights, L, keep_prob):
     """
     cache = {}
     cache['A0'] = X
-    for l in range(L):
-        W = weights["W" + str(l + 1)]
-        A = cache["A" + str(l)]
-        B = weights["b" + str(l + 1)]
+    for ly in range(L):
+        W = weights["W" + str(ly + 1)]
+        A = cache["A" + str(ly)]
+        B = weights["b" + str(ly + 1)]
         Z = np.matmul(W, A) + B
         dropout = np.random.rand(Z.shape[0], Z.shape[1])
         dropout = np.where(dropout < keep_prob, 1, 0)
-        if l == L - 1:
+        if ly == L - 1:
             softmax = np.exp(Z)
             cache["A" + str(l + 1)] = (softmax / np.sum(softmax, axis=0,
                                                         keepdims=True))
         else:
             tanh = np.tanh(Z)
-            cache["A" + str(l + 1)] = tanh
-            cache["D" + str(l + 1)] = dropout
-            cache["A" + str(l + 1)] *= dropout
-            cache["A" + str(l + 1)] /= keep_prob
+            cache["A" + str(ly + 1)] = tanh
+            cache["D" + str(ly + 1)] = dropout
+            cache["A" + str(ly + 1)] *= dropout
+            cache["A" + str(ly + 1)] /= keep_prob
     return cache
