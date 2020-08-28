@@ -21,17 +21,23 @@ def dropout_forward_prop(X, weights, L, keep_prob):
     Returns:
         cache
     """
-    cache = {'A0': X}
-    z = {}
-    for i in range(1, L+1):
-        z["z{}".format(i)] = np.add(np.matmul(weights["W{}".format(
-            i)], cache["A{}".format(i-1)]), weights["b{}".format(i)])
-        cache["A{}".format(i)] = np.tanh(z["z{}".format(i)])
-        cache["D{}".format(i)] = np.random.rand(
-            cache["A{}".format(i)].shape[0], cache["A{}".format(i)].shape[1])
-        cache["D{}".format(i)] = cache["D{}".format(i)] < keep_prob
-
-        cache["A{}".format(i)] = np.multiply(
-            cache["A{}".format(i)], cache["D{}".format(i)])
-        cache["A{}".format(i)] = cache["A{}".format(i)]/keep_prob
+    cache = {}  # dict that holds intermediate values of the network
+    cache['A0'] = X
+    for layer in range(L):
+        W = weights["W" + str(layer + 1)]
+        A = cache["A" + str(layer)]
+        B = weights["b" + str(layer + 1)]
+        Z = np.matmul(W, A) + B
+        dropout = np.random.rand(Z.shape[0], Z.shape[1])
+        dropout = np.where(dropout < keep_prob, 1, 0)
+        if layer == L - 1:
+            softmax = np.exp(Z)
+            cache["A" + str(layer + 1)] = (softmax / np.sum(softmax, axis=0,
+                                                            keepdims=True))
+        else:
+            tanh = np.tanh(Z)
+            cache["A" + str(layer + 1)] = tanh
+            cache["D" + str(layer + 1)] = dropout
+            cache["A" + str(layer + 1)] *= dropout
+            cache["A" + str(layer + 1)] /= keep_prob
     return cache
