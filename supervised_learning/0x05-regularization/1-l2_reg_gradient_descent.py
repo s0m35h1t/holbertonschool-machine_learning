@@ -21,14 +21,23 @@ def l2_reg_gradient_descent(Y, weights, cache, alpha, lambtha, L):
         L: number of layers of the network
     Returns: Cost of the network accounting for L2 regularization
     """
-    m = len(Y[0])
-    cache["dz{}".format(L)] = cache["A{}".format(L)] - Y
-    cache["dw{}".format(L)] = cache["dz{}".format(L)] @ cache["A{}".format(L - 1)].T / m + lambtha
-    cache["db{}".format(L)] = np.sum(cache["dz{}".format(L)], axis=1, keepdims=True) / m
-    L = L + 1
-    for i in range(1, L - 1):
-        cache["dz{}".format(L - i - 1)] = weights["W{}".format(L - i)].T @ cache["dz{}".format(L - i)] * cache["A{}".format(L - i - 1)]
-        cache["dw{}".format(L - i - 1)] = cache["dz{}".format(L - i - 1)] @ (cache["A{}".format(L - i - 2)]).T / m + lambtha / m * weights["W{}".format(L-1-i)]
-        cache["db{}".format(L - i - 1)] = np.sum(cache["dz{}".format(L - i - 1)], axis=1, keepdims=True) / m
-        weights["b{}".format(L - i)] = weights["b{}".format(L - i)] - (alpha * cache["db{}".format(L - i)])
-        weights["W{}".format(L - i)] = weights["W{}".format(L - i)] - (alpha * cache["dw{}".format(L - i)])
+    m = Y.shape[1]
+    W_cp = weights.copy()
+
+    for i in reversed(range(L)):
+        A = cache["A" + str(i + 1)]
+        if i == L - 1:
+            dZ = cache["A" + str(i + 1)] - Y
+            dW = (np.matmul(cache["A" + str(i)], dZ.T) / m).T
+            dW_L2 = dW + (lambtha / m) * W_copy["W" + str(i + 1)]
+            db = np.sum(dZ, axis=1, keepdims=True) / m
+        else:
+            dW2 = np.matmul(W_copy["W" + str(i + 2)].T, dZ2)
+            tanh = 1 - (A * A)
+            dZ = dW2 * tanh
+            dW = np.matmul(dZ, cache["A" + str(i)].T) / m
+            dW_L2 = dW + (lambtha / m) * W_cp["W" + str(i + 1)]
+            db = np.sum(dZ, axis=1, keepdims=True) / m
+        weights["W" + str(i + 1)] = (W_cp["W" + str(i+1)] - (alpha * dW_L2))
+        weights["b" + str(i + 1)] = W_cp["b" + str(i + 1)] - (alpha * db)
+        dZ2 = dZ
