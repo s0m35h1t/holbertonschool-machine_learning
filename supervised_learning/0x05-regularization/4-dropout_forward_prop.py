@@ -15,29 +15,29 @@ def dropout_forward_prop(X, weights, L, keep_prob):
             m: is the number of data points
         weights: dictionary of the weights and biases
         of the neural network
-        L: number of ls in the network
+        L: number of layers in the network
         keep_prob: probability that a node will be kept
-        All ls except the last should use the tanh activation function
+        All layers except the last should use the tanh activation function
     Returns:
         cache
     """
     cache = {}
     cache['A0'] = X
-    for ly in range(L):
-        W = weights["W" + str(ly + 1)]
-        A = cache["A" + str(ly)]
-        B = weights["b" + str(ly + 1)]
+    for layer in range(L):
+        W = weights["W" + str(layer + 1)]
+        A = cache["A" + str(layer)]
+        B = weights["b" + str(layer + 1)]
         Z = np.matmul(W, A) + B
         dropout = np.random.rand(Z.shape[0], Z.shape[1])
         dropout = np.where(dropout < keep_prob, 1, 0)
-        if ly == L - 1:
+        if layer == L - 1:
             softmax = np.exp(Z)
-            cache["A" + str(l + 1)] = (softmax / np.sum(softmax, axis=0,
-                                                        keepdims=True))
+            cache["A" + str(layer + 1)] = (softmax / np.sum(softmax, axis=0,
+                                                            keepdims=True))
         else:
             tanh = np.tanh(Z)
-            cache["A" + str(ly + 1)] = tanh
-            cache["D" + str(ly + 1)] = dropout
-            cache["A" + str(ly + 1)] *= dropout
-            cache["A" + str(ly + 1)] /= keep_prob
+            cache["A" + str(layer + 1)] = tanh
+            cache["D" + str(layer + 1)] = dropout
+            cache["A" + str(layer + 1)] *= dropout
+            cache["A" + str(layer + 1)] /= keep_prob
     return cache
