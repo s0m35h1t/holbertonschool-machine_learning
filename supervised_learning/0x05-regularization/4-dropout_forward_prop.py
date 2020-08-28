@@ -33,7 +33,7 @@ def dropout_forward_prop(X, weights, L, keep_prob):
         if l == L - 1:
             softmax = np.exp(Z)
             cache["A" + str(l + 1)] = (softmax / np.sum(softmax, axis=0,
-                                                            keepdims=True))
+                                                        keepdims=True))
         else:
             tanh = np.tanh(Z)
             cache["A" + str(l + 1)] = tanh
