@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """builds a neural network with the Keras librarys"""
 
-from tensorflow import Keras
+from tensorflow import keras as Keras
 
 
 def predict(network, data, verbose=False):
