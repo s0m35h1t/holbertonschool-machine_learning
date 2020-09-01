@@ -43,9 +43,9 @@ def train_model(network, data, labels, batch_size, epochs,
         return alpha / (1 + decay_rate * epoch)
 
     custom_callbacks = []
-    ES = Keras.callbacks.EarlyStopping(monitor='val_loss', mode='min',
+    ES = keras.callbacks.EarlyStopping(monitor='val_loss', mode='min',
                                        patience=patience)
-    LRD = Keras.callbacks.LearningRateScheduler(scheduler, verbose=1)
+    LRD = keras.callbacks.LearningRateScheduler(scheduler, verbose=1)
 
     if validation_data and early_stopping:
         custom_callbacks.append(ES)

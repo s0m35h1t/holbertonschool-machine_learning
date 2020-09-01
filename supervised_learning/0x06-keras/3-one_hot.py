@@ -12,4 +12,4 @@ def one_hot(labels, classes=None):
     Returns:
         The one-hot matrix
     """
-    return Keras.utils.to_categorical(labels, num_classes=classes)
+    return keras.utils.to_categorical(labels, num_classes=classes)

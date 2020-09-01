@@ -23,4 +23,4 @@ def load_model(filename):
     Returns:
         the loadel model
     """
-    return Keras.models.load_model(filename)
+    return keras.models.load_model(filename)

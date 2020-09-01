@@ -14,7 +14,7 @@ def optimize_model(network, alpha, beta1, beta2):
     Returns:
         None
     """
-    ADAM = Keras.optimizers.Adam(lr=alpha, beta_1=beta1, beta_2=beta2)
+    ADAM = keras.optimizers.Adam(lr=alpha, beta_1=beta1, beta_2=beta2)
     network.compile(optimizer=ADAM, loss='categorical_crossentropy',
                     metrics=['accuracy'])
     return None

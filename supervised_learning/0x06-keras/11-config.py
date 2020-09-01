@@ -27,4 +27,4 @@ def load_config(filename):
     """
     with open(filename, 'r') as f:
         network_config = f.read()
-    return Keras.models.model_from_json(network_config)
+    return keras.models.model_from_json(network_config)
