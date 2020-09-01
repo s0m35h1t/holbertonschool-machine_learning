@@ -9,8 +9,8 @@ def train_model(network, data, labels, batch_size, epochs,
     """Train a model using keras and validate data
     Args:
         network: model to train
-        data ((numpy.ndarray):): of shape (m, nx) containing the input data
-        labels ((numpy.ndarray):): one-hot of shape (m, classes) containing
+        data (numpy.ndarray): of shape (m, nx) containing the input data
+        labels (numpy.ndarray): one-hot of shape (m, classes) containing
                 the labels of data
         batch_size: size of the batch used for mini-batch gradient descent
         epochs (int): of passes through data for mini-batch gradient descent

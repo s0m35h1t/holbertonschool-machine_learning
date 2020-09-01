@@ -9,8 +9,7 @@ def train_model(network, data, labels, batch_size, epochs,
                 patience=0, learning_rate_decay=False,
                 alpha=0.1, decay_rate=1, save_best=False,
                 filepath=None, verbose=True, shuffle=False):
-    """
-    Function to train a model using keras and LRD
+    """Train a model using keras and LRD
     Args:
         network: model to train
         data: (numpy.ndarray): of shape (m, nx) containing the input data
@@ -26,11 +25,12 @@ def train_model(network, data, labels, batch_size, epochs,
                              should be used
         alpha: initial learning rate
         decay_rate: decay rate
-        verbose(bool): that determines if output should be printed during
+        verbose (bool): that determines if output should be printed during
                  training
-        shuffle(bool): that determines whether to shuffle the batches every
+        shuffle (bool): that determines whether to shuffle the batches every
                  epoch.
-    Returns:History object generated after training the model
+    Returns:
+        History object generated after training the model
     """
 
     def scheduler(epoch):
@@ -51,7 +51,7 @@ def train_model(network, data, labels, batch_size, epochs,
     if validation_data and learning_rate_decay:
         custom_callbacks.append(LRD)
     if save_best:
-        save = K.callbacks.ModelCheckpoint(filepath, save_best_only=True)
+        save = keras.callbacks.ModelCheckpoint(filepath, save_best_only=True)
         custom_callbacks.append(save)
 
     history = network.fit(x=data, y=labels, batch_size=batch_size,

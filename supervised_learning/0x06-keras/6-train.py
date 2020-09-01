@@ -16,12 +16,12 @@ def train_model(network, data, labels, batch_size, epochs,
         batch_size: size of the batch used for mini-batch gradient descent
         epochs: number of passes through data for mini-batch gradient descent
         validation_data: data to validate the model with, if not None
-        early_stopping(bool): that indicates whether early stopping
+        early_stopping  (bool): that indicates whether early stopping
                         should be used
         patience: patience used for early stopping
-        verbose(bool): that determines if output should be printed during
+        verbose (bool): that determines if output should be printed during
                  training
-        shuffle(bool): that determines whether to shuffle the batches every
+        shuffle (bool): that determines whether to shuffle the batches every
                  epoch.
     Returns:
         History object generated after training the model

@@ -25,9 +25,9 @@ def train_model(network, data, labels, batch_size, epochs,
                              should be used
         alpha: initial learning rate
         decay_rate: decay rate
-        verbose(bool): that determines if output should be printed during
+        verbose (bool): that determines if output should be printed during
                  training
-        shuffle(bool): that determines whether to shuffle the batches every
+        shuffle (bool): that determines whether to shuffle the batches every
                  epoch.
     Returns:
         History object generated after training the model
