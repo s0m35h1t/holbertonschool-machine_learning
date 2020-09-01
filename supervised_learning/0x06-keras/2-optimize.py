@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """builds a neural network with the Keras librarys"""
 
-from tensorflow import keras
+import tensorflow.keras as keras
 
 
 def optimize_model(network, alpha, beta1, beta2):
