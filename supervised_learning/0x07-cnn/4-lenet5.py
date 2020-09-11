@@ -18,11 +18,11 @@ def lenet5(X):
     init = K.initializers.he_normal()
     activation = 'relu'
 
-    conv_1 = K.layers.conv_2D(filters=6, kernel_size=5,
+    conv_1 = K.layers.Conv2D(filters=6, kernel_size=5,
                               padding='same', activation=activation,
                               kernel_initializer=init)(X)
     pool_1 = K.layers.MaxPooling2D(pool_size=[2, 2], strides=2)(conv_1)
-    conv_2 = K.layers.conv_2D(filters=16, kernel_size=5,
+    conv_2 = K.layers.Conv2D(filters=16, kernel_size=5,
                               padding='valid', activation=activation,
                               kernel_initializer=init)(pool_1)
     pool_2 = K.layers.MaxPooling2D(pool_size=[2, 2], strides=2)(conv_2)
