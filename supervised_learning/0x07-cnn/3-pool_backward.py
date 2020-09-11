@@ -1,49 +1,66 @@
 #!/usr/bin/env python3
 """Convolutional Neural Networks"""
 
-import tensorflow as tf
+import numpy as np
 
 
-def lenet5(x, y):
-    """Lenet5 with tensorflow
+def pool_backward(dA, A_prev, kernel_shape, stride=(1, 1), mode='max'):
+    """Back propagation over a pooling layer in a CNN
     Args:
-        x: tf.placeholder of shape (m, 28, 28, 1)
-           containing the input images for the network
-           m: the number of images
-        y: tf.placeholder of shape (m, 10) containing
-           the one-hot labels for the network
+        dA: numpy.ndarray of shape (m, h_new, w_new, c_new) containing
+            the partial derivatives with respect to the unactivated output of
+            the convolutional layer
+            m: the number of examples
+            h_new: the height of the output
+            w_new: the width of the output
+            c_new: the number of channels
+        A_prev: numpy.ndarray of shape (m, h_prev, w_prev, c_prev) containing
+                the output of the previous layer
+                h_prev: the height of the previous layer
+                w_prev: the width of the previous layer
+        kernel_shape: tuple of (kh, kw) containing the size of the kernel for
+                      the pooling
+                      kh: the kernel height
+                      kw: the kernel width
+        stride: tuple of (sh, sw) containing the strides for the convolution
+                sh: the stride for the height
+                sw: the stride for the width
+        mode: string containing either max or avg, indicating whether to
+              perform maximum or avg pooling, respectively
     Returns:
-            a tensor for the softmax activated output,
-            training operation that utilizes Adam
-            optimization (with default hyperparameters),
-            tensor for the loss of the network,
-            tensor for the accuracy of the network
+        the partial derivatives with respect to the previous layer
+        (dA_prev)
     """
-    init = tf.contrib.layers.variance_scaling_initializer()
+    (m, h_prev, w_prev, c_prev) = A_prev.shape
+    (m, h_new, w_new, c_new) = dA.shape
+    (kh, kw) = kernel_shape
+    sh, sw = stride
+    dA_prev = np.zeros(A_prev.shape)
 
-    activation = tf.nn.relu
-    conv_1 = tf.layers.conv_2D(filters=6, kernel_size=5,
-                               padding='same', activation=activation,
-                               kernel_initializer=init)(x)
-    pool_1 = tf.layers.MaxPooling2D(pool_size=[2, 2], strides=2)(conv_1)
-    conv_2 = tf.layers.conv_2D(filters=16, kernel_size=5,
-                               padding='valid', activation=activation,
-                               kernel_initializer=init)(pool_1)
-    pool_2 = tf.layers.MaxPooling2D(pool_size=[2, 2], strides=2)(conv_2)
-    flatten = tf.layers.Flatten()(pool_2)
+    for i in range(m):
+        a_prev = A_prev[i]
+        for h in range(h_new):
+            for w in range(w_new):
+                for c in range(c_new):
+                    v_beg = h * sh
+                    v_end = v_beg + kh
+                    h_start = w * sw
+                    h_end = h_start + kw
 
-    fc1 = tf.layers.Dense(units=120, activation=activation,
-                          kernel_initializer=init)(flatten)
-    fc2 = tf.layers.Dense(units=84, activation=activation,
-                          kernel_initializer=init)(fc1)
-    fc3 = tf.layers.Dense(units=10, kernel_initializer=init)(fc2)
-    y_pred = fc3
+                    if mode == 'max':
+                        a_slice = a_prev[v_beg:v_end, h_start:h_end, c]
 
-    loss = tf.losses.softmax_cross_entropy(y, fc3)
-    train = tf.train.AdamOptimizer().minimize(loss)
+                        mask = (a_slice == np.max(a_slice))
+                        dA_prev[i, v_beg:v_end,
+                                h_start:h_end,
+                                c] += np.multiply(mask, dA[i, h, w, c])
 
-    correct_pred = tf.equal(tf.argmax(y, 1), tf.argmax(y_pred, 1))
-    accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
-
-    y_pred = tf.nn.softmax(y_pred)
-    return y_pred, train, loss, accuracy
+                    elif mode == 'avg':
+                        da = dA[i, h, w, c]
+                        shape = kernel_shape
+                        avg = da / (kh * kw)
+                        Z = np.ones(shape) * avg
+                        dA_prev[i,
+                                v_beg:v_end,
+                                h_start:h_end, c] += Z
+    return dA_prev
