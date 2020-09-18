@@ -35,5 +35,5 @@ def dense_block(X, nb_filters, growth_rate, layers):
                                      padding='same',
                                      kernel_initializer=init)(relu2)
         nb_filters += growth_rate
-
-    return Keras.layers.concatenate([X, X_conv]), nb_filters
+        x = Keras.layers.concatenate([X, X_conv])
+    return x, nb_filters
