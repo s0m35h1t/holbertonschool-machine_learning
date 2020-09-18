@@ -46,4 +46,5 @@ def densenet121(growth_rate=32, compression=1.0):
     FC = Keras.layers.Dense(1000, activation='softmax',
                             kernel_initializer=init)(avg_pool)
 
-    return Keras.models.Model(inputs=X, outputs=FC)
+    model = Keras.models.Model(inputs=X, outputs=FC)
+    return model
