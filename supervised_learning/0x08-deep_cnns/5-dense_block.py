@@ -25,15 +25,15 @@ def dense_block(X, nb_filters, growth_rate, layers):
         relu1 = Keras.layers.Activation('relu')(batch1)
 
         bottleneck = Keras.layers.Conv2D(filters=4*growth_rate,
-                                     kernel_size=1, padding='same',
-                                     kernel_initializer=init)(relu1)
+                                         kernel_size=1, padding='same',
+                                         kernel_initializer=init)(relu1)
 
         batch2 = Keras.layers.BatchNormalization()(bottleneck)
         relu2 = Keras.layers.Activation('relu')(batch2)
 
         X_conv = Keras.layers.Conv2D(filters=growth_rate, kernel_size=3,
-                                 padding='same',
-                                 kernel_initializer=init)(relu2)
+                                     padding='same',
+                                     kernel_initializer=init)(relu2)
         X = Keras.layers.concatenate([X, X_conv])
         nb_filters += growth_rate
 
