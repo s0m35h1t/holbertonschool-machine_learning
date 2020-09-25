@@ -16,10 +16,10 @@ def preprocess_data(X, Y):
         X_p (numpy.ndarray) containing the preprocessed X
         Y_p (numpy.ndarray) containing the preprocessed Y"""
 
-    X_p = Keras.applications.densenet.preprocess_input(X)
-    Y_p = Keras.utils.to_categorical(Y, num_classes=10)
+    Xp = Keras.applications.densenet.preprocess_input(X)
+    Yc = Keras.utils.to_categorical(Y, num_classes=10)
 
-    return (X_p, Y_p)
+    return (Xp, Yc)
 
 
 if __name__ == "__main__":
