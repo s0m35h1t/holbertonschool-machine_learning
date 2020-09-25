@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 """trains a convolutional neural network to classify the CIFAR 10 dataset"""
 
 import tensorflow.keras as keras
