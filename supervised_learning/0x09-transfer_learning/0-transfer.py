@@ -32,8 +32,10 @@ if __name__ == "__main__":
     num_classes = 10
 
     (x_train, y_train), (x_test, y_test) = Keras.datasets.cifar10.load_data()
-    y_test = Keras.utils.to_categorical(y_test, num_classes=10)
-    y_train = Keras.utils.to_categorical(y_train, num_classes=10)
+    print((x_train.shape, y_train.shape))
+    x_train, y_train = preprocess_data(x_train, y_train)
+    x_test, y_test = preprocess_data(x_test, y_test)
+    print((x_train.shape, y_train.shape))
 
     data_augmentation_x = np.fliplr(x_train)
     data_augmentation_y = np.fliplr(y_train)
@@ -52,14 +54,10 @@ if __name__ == "__main__":
         classes=num_classes)
 
     pre_trained_model.trainable = True
-    ts = False
     for l in pre_trained_model.layers:
-        if "conv5" in l.name or "conv4" in l.name:
-            ts = True
-        if ts:
-            l.trainable = True
-        else:
-            l.trainable = False
+        l.trainable = True if (
+            "conv5" in l.name or "conv4" in l.name) else False
+        print("--", l.name, "-", l.trainable)
 
     model = Keras.models.Sequential([
         pre_trained_model,
@@ -96,3 +94,5 @@ if __name__ == "__main__":
                         shuffle=True,
                         validation_data=(x_test, y_test),
                         callbacks=cbs)
+    model.summary()
+    model.save(model_name)
