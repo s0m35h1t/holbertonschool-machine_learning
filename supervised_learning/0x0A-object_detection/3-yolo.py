@@ -8,7 +8,7 @@ import os
 
 
 def iou(box_a, box_b):
-    """intersection over union 
+    """intersection over union
     Args:
         box_a
         box_b
