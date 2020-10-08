@@ -146,7 +146,7 @@ class Yolo:
             for _idx in range(idx + 1, len(box_scores)):
                 if (box_classes[_idx] != cl):
                     break
-                if ((intersection_over_union(filtered_boxes[_idx], box)
+                if ((iou(filtered_boxes[_idx], box)
                      >= self.nms_t)):
                     del_idxs.append(_idx)
         return (np.delete(filtered_boxes, del_idxs, axis=0),
