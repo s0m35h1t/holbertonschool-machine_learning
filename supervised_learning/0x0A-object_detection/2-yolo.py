@@ -51,15 +51,25 @@ class Yolo:
     def filter_boxes(self, boxes, box_confidences, box_class_probs):
         """Filter box outputs
         Agrs:
-            boxes: a list of numpy.ndarrays of shape (grid_height, grid_width, anchor_boxes, 4) containing the processed boundary boxes for each output, respectively:
-                4 => (x1, y1, x2, y2)
-                (x1, y1, x2, y2) should represent the boundary box relative to original image
-            box_confidences: a list of numpy.ndarrays of shape (grid_height, grid_width, anchor_boxes, 1) containing the box confidences for each output, respectively
-            box_class_probs: a list of numpy.ndarrays of shape (grid_height, grid_width, anchor_boxes, classes) containing the box’s class probabilities for each output, respectively
-
+        boxes: a list of numpy.ndarrays of shape
+            (grid_height, grid_width, anchor_boxes, 4)
+            containing the processed boundary boxes for each output, respectively
+            box_confidences: a list of numpy.ndarrays of shape
+        (grid_height, grid_width, anchor_boxes, 1)
+            containing the processed box confidences for each output, respectively
+        box_class_probs: a list of numpy.ndarrays of shape
+            (grid_height, grid_width, anchor_boxes, classes)
+                containing the processed box class probabilities
+                for each output, respectively
         Returns:
-            Returns a tuple of
-            (boxes, box_confidences, box_class_probs)
+            tuple of (filtered_boxes, box_classes, box_scores):
+                filtered_boxes: a numpy.ndarray of shape (?, 4)
+                containing all of the filtered bounding boxes:
+                box_classes: a numpy.ndarray of shape (?,)
+                containing the class number that each box in filtered_boxes predicts, respectively
+                box_scores: a numpy.ndarray of shape (?)
+                containing the box scores for each box in filtered_boxes, respectively
+
         """
         _boxes = np.concatenate([boxs.reshape(-1, 4) for boxs in boxes])
         class_probs = np.concatenate([probs.reshape(-1,
