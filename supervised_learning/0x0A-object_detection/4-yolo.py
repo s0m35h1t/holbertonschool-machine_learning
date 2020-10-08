@@ -155,7 +155,7 @@ class Yolo:
 
     @staticmethod
     def load_images(folder_path):
-        """load images from folder 
+        """load images from folder
         Args:
             folder_path: a string representing the path
             to the folder holding all the images to load
@@ -168,10 +168,10 @@ class Yolo:
                 individual images in images
         """
         fp_list = os.listdir(folder_path)
-        images = []
+        imgs = []
         file_paths = []
         for f in fp_list:
             path = folder_path + '/' + f
-            images.append(cv2.imread(folder_path + '/' + f))
+            imgs.append(cv2.imread(folder_path + '/' + f))
             file_paths.append(path)
-        return images, file_paths
+        return imgs, file_paths
