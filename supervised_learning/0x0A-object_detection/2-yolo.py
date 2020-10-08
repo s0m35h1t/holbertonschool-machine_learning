@@ -53,10 +53,12 @@ class Yolo:
         Agrs:
         boxes: a list of numpy.ndarrays of shape
             (grid_height, grid_width, anchor_boxes, 4)
-            containing the processed boundary boxes for each output, respectively
+            containing the processed boundary boxes for each output,
+            respectively
             box_confidences: a list of numpy.ndarrays of shape
         (grid_height, grid_width, anchor_boxes, 1)
-            containing the processed box confidences for each output, respectively
+            containing the processed box confidences for each output,
+            respectively
         box_class_probs: a list of numpy.ndarrays of shape
             (grid_height, grid_width, anchor_boxes, classes)
                 containing the processed box class probabilities
@@ -66,9 +68,11 @@ class Yolo:
                 filtered_boxes: a numpy.ndarray of shape (?, 4)
                 containing all of the filtered bounding boxes:
                 box_classes: a numpy.ndarray of shape (?,)
-                containing the class number that each box in filtered_boxes predicts, respectively
+                containing the class number that each box in
+                filtered_boxes predicts, respectively
                 box_scores: a numpy.ndarray of shape (?)
-                containing the box scores for each box in filtered_boxes, respectively
+                containing the box scores for each box in filtered_boxes,
+                respectively
 
         """
         _boxes = np.concatenate([boxs.reshape(-1, 4) for boxs in boxes])
