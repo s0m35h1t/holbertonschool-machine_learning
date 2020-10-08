@@ -188,9 +188,9 @@ class Yolo:
                 all of the preprocessed images
                 ni: the number of images that were
                 preprocessed
-                input_h: the input height for the Darknet 
+                input_h: the input height for the Darknet
                 model Note: this can vary by model
-                input_w: the input width for the Darknet 
+                input_w: the input width for the Darknet
                 model Note: this can vary by model
                 3: number of color channels
             image_shapes: a numpy.ndarray of shape
@@ -198,14 +198,21 @@ class Yolo:
                 and width of the images
                 2 => (image_height, image_width)
         """
-        image_shapes = np.empty((len(images), 2))
-        pimages = np.empty((len(images), input_h, intput_w, 3))
-        input_h = self.model.input.shape[1]
-        input_w = self.model.input.shape[2]
-        for i, im in enumerate(images):
-            image_shapes[i][0] = im.shape[0]
-            image_shapes[i][1] = im.shape[1]
-            pimages[i] = cv2.resize(im / 255,
-                                    (input_h, input_w),
-                                    interpolation=cv2.INTER_CUBIC)
-        return pimages, image_shapes
+
+        input_width = self.model.input.shape[1].value
+        input_height = self.model.input.shape[2].value
+        resize = (input_width, input_height)
+        image_shapes = []
+        pimages = []
+        for image in images:
+            shape = image.shape[:2]
+            image_shapes.append(shape)
+            image_resize = cv2.resize(image,
+                                      resize,
+                                      interpolation=cv2.INTER_CUBIC)
+            image_rescaled = image_resize/255
+            pimages.append(image_rescaled)
+        pimages = np.stack(pimages, axis=0)
+        image_shapes = np.stack(image_shapes, axis=0)
+
+        return (pimages, image_shapes)
