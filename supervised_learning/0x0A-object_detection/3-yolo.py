@@ -18,10 +18,10 @@ def iou(box_a, box_b):
     x2 = min(box_a[2], box_b[2])
     y2 = min(box_a[3], box_b[3])
 
-    intarea = max(0, (x2 - x1)) * max(0, (y2 - y1))
+    area = max(0, (x2 - x1)) * max(0, (y2 - y1))
     a_area = (box_a[2] - box_a[0]) * (box_a[3] - box_a[1])
     b_area = (box_b[2] - box_b[0]) * (box_b[3] - box_b[1])
-    return intarea / (box_aarea + box_barea - intarea)
+    return area / (a_area + b_area - area)
 
 
 class Yolo:
