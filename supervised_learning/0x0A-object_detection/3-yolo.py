@@ -141,14 +141,14 @@ class Yolo:
         for idx in range(len(box_scores)):
             if idx in del_idxs:
                 continue
-            cl = box_classes[idx]
+            clas = box_classes[idx]
             box = filtered_boxes[idx]
-            for _idx in range(idx + 1, len(box_scores)):
-                if (box_classes[_idx] != cl):
+            for cidx in range(idx + 1, len(box_scores)):
+                if (box_classes[cidx] != clas):
                     break
-                if ((iou(filtered_boxes[_idx], box)
+                if ((iou(filtered_boxes[cidx], box)
                      >= self.nms_t)):
-                    del_idxs.append(_idx)
+                    del_idxs.append(cidx)
         return (np.delete(filtered_boxes, del_idxs, axis=0),
                 np.delete(box_classes, del_idxs),
                 np.delete(box_scores, del_idxs))
