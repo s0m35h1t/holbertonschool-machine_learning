@@ -48,6 +48,7 @@ def determinant(matrix):
 
     return det
 
+
 def cofactor(matrix):
     """ Calculates the cofactor of a square matrix.
     Args:

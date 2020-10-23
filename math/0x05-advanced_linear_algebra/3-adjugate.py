@@ -48,6 +48,7 @@ def determinant(matrix):
 
     return det
 
+
 def transponse(m):
     """Calculates the transpose of a matrix
     Args:

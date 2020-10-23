@@ -47,6 +47,8 @@ def determinant(matrix):
         det += matrix[0][j] * ((-1) ** j) * determinant(om)
 
     return det
+
+
 def minor(matrix):
     """Calculates the minor of a square matrix.
     Args:
