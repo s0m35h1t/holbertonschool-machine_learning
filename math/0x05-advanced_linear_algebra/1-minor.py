@@ -72,4 +72,5 @@ def minor(matrix):
         return [[1]]
 
     return [[determinant(mminor(matrix, i, j))
-             for j in range(len(matrix[i]))] for i in range(len(matrix))]
+            for j in range(len(matrix[i]))]
+            for i in range(len(matrix))]
