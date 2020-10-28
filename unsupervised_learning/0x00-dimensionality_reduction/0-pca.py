@@ -18,9 +18,12 @@ def pca(X, var=0.95):
         original variance. W is a ndarray (d, nd)
         nd is the new dimensionality o the transformed X
     """
-    _, Sigma, vh = np.linalg.svd(X, full_matrices=False)
-    cumulative_var = np.cumsum(Sigma) / np.sum(Sigma)
-    r = (np.argwhere(cumulative_var >= var))[0, 0]
-    w = vh.T
-    wr = w[:, :r + 1]
-    return wr
+    _, S, Vt = np.linalg.svd(X)
+    sum_s = np.cumsum(S)
+    sum_s = sum_s / sum_s[-1]
+    r = np.min(np.where(sum_s >= var))
+
+    V = Vt.T
+    Vr = V[..., :r + 1]
+
+    return Vr
