@@ -5,8 +5,7 @@ import numpy as np
 
 
 def Q_affinities(Y):
-    """
-    Function that computes Q affinities
+    """Computes Q affinities
     Args:
         Y: numpy.ndarray of shape (n, ndim)
            containing the low dimensional transformation of X
@@ -21,6 +20,6 @@ def Q_affinities(Y):
     numerator = -2. * np.dot(Y, Y.T)
     numerator = 1. / (1. + np.add(np.add(numerator, sum_Y).T, sum_Y))
     np.fill_diagonal(numerator, 0)
-    Q = numerator / np.sum(numerator)
+    Qu = numerator / np.sum(numerator)
 
-    return Q, numerator
+    return Qu, numerator
