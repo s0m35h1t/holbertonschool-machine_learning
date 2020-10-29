@@ -76,7 +76,7 @@ def adjugate(matrix):
             or matrix == [[]]:
         raise ValueError("matrix must be a non-empty square matrix")
 
-    if any([len(l) != len(matrix) for l in matrix]):
+    if any([len(lin) != len(matrix) for lin in matrix]):
         raise ValueError("matrix must be a non-empty square matrix")
 
     if len(matrix) == 1 and len(matrix[0]) == 1:
@@ -104,7 +104,7 @@ def inverse(matrix):
             or matrix == [[]]:
         raise ValueError("matrix must be a non-empty square matrix")
 
-    if any([len(l) != len(matrix) for l in matrix]):
+    if any([len(lin) != len(matrix) for lin in matrix]):
         raise ValueError("matrix must be a non-empty square matrix")
 
     det = determinant(matrix)
