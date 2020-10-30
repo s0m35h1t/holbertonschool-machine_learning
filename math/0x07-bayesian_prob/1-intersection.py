@@ -23,8 +23,7 @@ def likelihood(x, n, P):
         raise ValueError("n must be a positive integer")
 
     if not isinstance(x, (int, float)) or x < 0:
-        message = "x must be an integer that is greater than or equal to 0"
-        raise ValueError(message)
+        raise ValueError("x must be an integer that is greater than or equal to 0")
 
     if x > n:
         raise ValueError("x cannot be greater than n")
@@ -35,11 +34,11 @@ def likelihood(x, n, P):
     if np.any(P > 1) or np.any(P < 0):
         raise ValueError("All values in P must be in the range [0, 1]")
 
-
     com = np.math.factorial(n)/(np.math.factorial(x) * np.math.factorial(n-x))
     lh = com * pow(P, x) * pow(1 - P, n - x)
 
     return lh
+
 
 def intersection(x, n, P, Pr):
     """Calculates the intersection of obtaining this data with
@@ -59,8 +58,8 @@ def intersection(x, n, P, Pr):
         raise ValueError("n must be a positive integer")
 
     if not isinstance(x, (int, float)) or x < 0:
-        message = "x must be an integer that is greater than or equal to 0"
-        raise ValueError(message)
+        msg = "x must be an integer that is greater than or equal to 0"
+        raise ValueError(msg)
 
     if x > n:
         raise ValueError("x cannot be greater than n")

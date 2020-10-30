@@ -23,8 +23,8 @@ def likelihood(x, n, P):
         raise ValueError("n must be a positive integer")
 
     if not isinstance(x, (int, float)) or x < 0:
-        message = "x must be an integer that is greater than or equal to 0"
-        raise ValueError(message)
+        msg = "x must be an integer that is greater than or equal to 0"
+        raise ValueError(msg)
 
     if x > n:
         raise ValueError("x cannot be greater than n")
@@ -59,8 +59,8 @@ def intersection(x, n, P, Pr):
         raise ValueError("n must be a positive integer")
 
     if not isinstance(x, (int, float)) or x < 0:
-        message = "x must be an integer that is greater than or equal to 0"
-        raise ValueError(message)
+        msg = "x must be an integer that is greater than or equal to 0"
+        raise ValueError(msg)
 
     if x > n:
         raise ValueError("x cannot be greater than n")
@@ -99,8 +99,8 @@ def marginal(x, n, P, Pr):
         raise ValueError("n must be a positive integer")
 
     if not isinstance(x, (int, float)) or x < 0:
-        message = "x must be an integer that is greater than or equal to 0"
-        raise ValueError(message)
+        msg = "x must be an integer that is greater than or equal to 0"
+        raise ValueError(msg)
 
     if x > n:
         raise ValueError("x cannot be greater than n")
@@ -124,24 +124,23 @@ def marginal(x, n, P, Pr):
 
 
 def posterior(x, n, P, Pr):
-    """Calculates the posterior probability for the various
+    """
+    Function that calculates the posterior probability for the various
     hypothetical probabilities of developing severe side effects given the data
-    Args:
-        x is the number of patients that develop severe side effects
-        n is the total number of patients observed
-        P is a 1D numpy.ndarray containing the various hypothetical probabilities
-        of developing severe side effects
-        Pr is a 1D numpy.ndarray containing the prior beliefs of P
-    Returns:
-        the posterior probability of each probability in P given x and n
+    x is the number of patients that develop severe side effects
+    n is the total number of patients observed
+    P is a 1D numpy.ndarray containing the various hypothetical probabilities
+    of developing severe side effects
+    Pr is a 1D numpy.ndarray containing the prior beliefs of P
+    Returns: the posterior probability of each probability in P given x and n
     """
 
     if not isinstance(n, (int, float)) or n <= 0:
         raise ValueError("n must be a positive integer")
 
     if not isinstance(x, (int, float)) or x < 0:
-        message = "x must be an integer that is greater than or equal to 0"
-        raise ValueError(message)
+        msg = "x must be an integer that is greater than or equal to 0"
+        raise ValueError(msg)
 
     if x > n:
         raise ValueError("x cannot be greater than n")
@@ -162,3 +161,4 @@ def posterior(x, n, P, Pr):
         raise ValueError("Pr must sum to 1")
 
     return intersection(x, n, P, Pr) / marginal(x, n, P, Pr)
+
