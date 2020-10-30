@@ -12,7 +12,8 @@ def likelihood(x, n, P):
 `        x follows a binomial distribution.
         x is the number of patients that develop severe side effects
         n is the total number of patients observed
-        P is a 1D numpy.ndarray containing the various hypothetical probabilities
+        P is a 1D numpy.ndarray containing the various hypothetical
+        probabilities
         of developing severe side effects`
     Returns:
         (numpy.ndarray) with the likelihood of obtaining the data,
@@ -35,11 +36,11 @@ def likelihood(x, n, P):
     if np.any(P > 1) or np.any(P < 0):
         raise ValueError("All values in P must be in the range [0, 1]")
 
-
     com = np.math.factorial(n)/(np.math.factorial(x) * np.math.factorial(n-x))
     lh = com * pow(P, x) * pow(1 - P, n - x)
 
     return lh
+
 
 def intersection(x, n, P, Pr):
     """Calculates the intersection of obtaining this data with
@@ -88,7 +89,8 @@ def marginal(x, n, P, Pr):
     rgs
         x is the number of patients that develop severe side effects
         n is the total number of patients observed
-        P is a 1D numpy.ndarray containing the various hypothetical probabilities
+        P is a 1D numpy.ndarray containing the various hypothetical
+        probabilities
         of patients developing severe side effects
         Pr is a 1D numpy.ndarray containing the prior beliefs about P
     Returns:
@@ -161,4 +163,3 @@ def posterior(x, n, P, Pr):
         raise ValueError("Pr must sum to 1")
 
     return intersection(x, n, P, Pr) / marginal(x, n, P, Pr)
-

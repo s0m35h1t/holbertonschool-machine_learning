@@ -12,7 +12,8 @@ def likelihood(x, n, P):
 `        x follows a binomial distribution.
         x is the number of patients that develop severe side effects
         n is the total number of patients observed
-        P is a 1D numpy.ndarray containing the various hypothetical probabilities
+        P is a 1D numpy.ndarray containing the various hypothetical
+        probabilities
         of developing severe side effects`
     Returns:
         (numpy.ndarray) with the likelihood of obtaining the data,
@@ -23,7 +24,8 @@ def likelihood(x, n, P):
         raise ValueError("n must be a positive integer")
 
     if not isinstance(x, (int, float)) or x < 0:
-        raise ValueError("x must be an integer that is greater than or equal to 0")
+        raise ValueError("x must be an integer that is greater \
+                        than or equal to 0")
 
     if x > n:
         raise ValueError("x cannot be greater than n")
