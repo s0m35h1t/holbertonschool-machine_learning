@@ -24,8 +24,8 @@ def likelihood(x, n, P):
         raise ValueError("n must be a positive integer")
 
     if not isinstance(x, (int, float)) or x < 0:
-        raise ValueError("x must be an integer that is greater \
-            than or equal to 0")
+        msg = "x must be an integer that is greater than or equal to 0"
+        raise ValueError(msg)
 
     if x > n:
         raise ValueError("x cannot be greater than n")
@@ -37,9 +37,8 @@ def likelihood(x, n, P):
         raise ValueError("All values in P must be in the range [0, 1]")
 
     com = np.math.factorial(n)/(np.math.factorial(x) * np.math.factorial(n-x))
-    lh = com * pow(P, x) * pow(1 - P, n - x)
 
-    return lh
+    return com * pow(P, x) * pow(1 - P, n - x)
 
 
 def intersection(x, n, P, Pr):

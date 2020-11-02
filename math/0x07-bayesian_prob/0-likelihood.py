@@ -37,6 +37,5 @@ def likelihood(x, n, P):
         raise ValueError("All values in P must be in the range [0, 1]")
 
     com = np.math.factorial(n)/(np.math.factorial(x) * np.math.factorial(n-x))
-    lh = com * pow(P, x) * pow(1 - P, n - x)
 
-    return lh
+    return com * pow(P, x) * pow(1 - P, n - x)
