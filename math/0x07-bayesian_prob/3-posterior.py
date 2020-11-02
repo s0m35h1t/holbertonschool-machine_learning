@@ -130,7 +130,8 @@ def posterior(x, n, P, Pr):
     Args:
         x is the number of patients that develop severe side effects
         n is the total number of patients observed
-        P is a 1D numpy.ndarray containing the various hypothetical probabilities
+        P is a 1D numpy.ndarray containing the various hypothetical
+        probabilities
         of developing severe side effects
         Pr is a 1D numpy.ndarray containing the prior beliefs of P
     Returns:

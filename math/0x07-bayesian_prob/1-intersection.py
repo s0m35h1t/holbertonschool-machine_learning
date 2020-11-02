@@ -25,7 +25,7 @@ def likelihood(x, n, P):
 
     if not isinstance(x, (int, float)) or x < 0:
         msg = "x must be an integer that is greater than or equal to 0"
-        raise ValueError(msg))
+        raise ValueError(msg)
 
     if x > n:
         raise ValueError("x cannot be greater than n")
