@@ -55,4 +55,5 @@ def expectation(X, pi, m, S):
         num[i] = pi[i] * pdf(X, m[i], S[i])
         sn += num[i]
 
-    return num / sn, np.sum(np.log(np.sum(num, axis=0, keepdims=True)))
+    sn = np.sum(num, axis=0, keepdims=True)
+    return num / sn, np.sum(np.log(sn))
