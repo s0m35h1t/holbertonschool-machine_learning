@@ -40,9 +40,9 @@ def pdf(X, m, S):
     inv = np.linalg.inv(S)
     S_det = np.linalg.det(S)
 
-    diff = X.T - m[:, np.newaxis]
+    dis = X.T - m[:, np.newaxis]
 
-    density = np.exp(- np.sum(diff * np.matmul(inv, diff),
-                              axis=0) / 2) / np.sqrt(((2 * np.pi) ** d) * S_det)
+    density = np.exp(-np.sum(dis * np.matmul(inv, dis),
+                             axis=0) / 2) / np.sqrt(((2 * np.pi) ** d) * S_det)
 
     return np.where(density < 1e-300, 1e-300, density)
