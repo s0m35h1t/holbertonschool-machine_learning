@@ -19,7 +19,10 @@ def absorbing(P):
     if not isinstance(P, np.ndarray) or len(P.shape) != 2:
         return False
 
-    if P.shape[0] != P.shape[1] or np.sum(P, axis=1).all() != 1:
+    if P.shape[0] != P.shape[1]:
+        return False
+    
+    if np.sum(P, axis=1).all() != 1:
         return False
 
     P_diag = np.diag(P)
