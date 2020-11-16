@@ -27,7 +27,7 @@ def regular(P):
     idx = np.where(np.isclose(w, 1))
 
     idx = idx[0][0] if len(idx[0]) else None
-    if not idx:
+    if idx is None:
         return None
 
     steady = v[:, idx]
