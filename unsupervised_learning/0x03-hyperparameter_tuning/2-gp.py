@@ -80,9 +80,6 @@ class GaussianProcess:
             Updates the public instance attributes X, Y, and K
         """
         self.X = np.append(self.X, X_new)[:, np.newaxis]
-        # self.X = self.X[:, np.newaxis]
-
         self.Y = np.append(self.Y, Y_new)[:, np.newaxis]
-        # self.Y = self.Y[:, np.newaxis]
 
         self.K = self.kernel(self.X, self.X)
