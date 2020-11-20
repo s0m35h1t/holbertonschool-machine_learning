@@ -88,6 +88,6 @@ class BayesianOptimization:
                 break
             self.gp.update(X_next, self.f(X_next))
 
-        idx = np.argmin(self.gp.Y) if self.minimize else np.argmax(self.gp.Y)
+        idx = np.argmin(self.gp.Y) if self.minimize is True else np.argmax(self.gp.Y)
 
         return self.gp.X[idx], self.gp.Y[idx]
