@@ -60,11 +60,11 @@ class BayesianOptimization:
 
         with np.errstate(divide='warn'):
             if self.minimize is True:
-                imp = (np.amin(self.gp.Y) - mu - self.xsi).reshape(-1, 1)
+                im = (np.amin(self.gp.Y) - mu - self.xsi).reshape(-1, 1)
             else:
-                imp = (mu - np.amax(self.gp.Y) - self.xsi).reshape(-1, 1)
+                im = (mu - np.amax(self.gp.Y) - self.xsi).reshape(-1, 1)
 
-            EI = imp * norm.cdf(imp / sigma) + sigma * norm.pdf(imp / sigma)
+            EI = im * norm.cdf(im / sigma) + sigma * norm.pdf(im / sigma)
             EI[sigma == 0.0] = 0.0
 
         return self.X_s[np.argmax(EI)], EI.reshape(-1)
