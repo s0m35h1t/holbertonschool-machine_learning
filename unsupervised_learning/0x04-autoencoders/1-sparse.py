@@ -22,8 +22,10 @@ def sparse(input_dims, hidden_layers, latent_dims, lambtha):
         decoder is the decoder model
         auto is the sparse autoencoder model
     """
-    inputs = keras.Input((input_dims,))
-    encoder = inputs
+    e_inputs = keras.Input((input_dims,))
+    d_inputs = keras.Input((latent_dims,))
+
+    encoder = e_inputs
     for hl in hidden_layers:
         encoder = keras.layers.Dense(hl, activation='relu')(encoder)
     encoder = keras.layers.Dense(
@@ -31,15 +33,15 @@ def sparse(input_dims, hidden_layers, latent_dims, lambtha):
         activation='relu',
         activity_regularizer=keras.regularizers.l1(lambtha))(encoder)
 
-    decoder = inputs
+    decoder = d_inputs
     for hl in reversed(hidden_layers):
         decoder = keras.layers.Dense(hl, activation='relu')(decoder)
     decoder = keras.layers.Dense(input_dims, activation="sigmoid")(decoder)
 
-    encoder = keras.Model(inputs, encoder)
-    decoder = keras.Model(inputs, decoder)
+    encoder = keras.Model(e_inputs, encoder)
+    decoder = keras.Model(d_inputs, decoder)
 
-    auto = keras.Model(inputs, decoder(encoder(inputs)))
+    auto = keras.Model(e_inputs, decoder(encoder(e_inputs)))
     auto.compile(optimizer="adam", loss="binary_crossentropy")
 
     return encoder, decoder, auto
