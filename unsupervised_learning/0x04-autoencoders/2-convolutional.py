@@ -34,7 +34,7 @@ def autoencoder(input_dims, filters, latent_dims):
 
     """
     e_inputs = keras.Input((input_dims,))
-    d_inputs = keras.Input((latent_dims,)))
+    d_inputs = keras.Input((latent_dims,))
 
     encoder = e_inputs
     for f in filters:
@@ -47,9 +47,11 @@ def autoencoder(input_dims, filters, latent_dims):
         decoder = keras.layers.Conv2D(
             filters[i], (3, 3), activation='relu', padding='same')(decoder)
         decoder = keras.layers.UpSampling2D((2, 2))(decoder)
+
     decoder = keras.layers.Conv2D(filters[0],
                                   (3, 3), activation='relu',
                                   padding='valid')(decoder)
+
     decoder = keras.layers.UpSampling2D((2, 2))(decoder)
     decoder = keras.layers.Conv2D(input_dims[-1], (3, 3),
                                   activation='sigmoid',
