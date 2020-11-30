@@ -23,7 +23,6 @@ def sparse(input_dims, hidden_layers, latent_dims, lambtha):
         auto is the sparse autoencoder model
     """
     inputs = keras.Input((input_dims,))
-    
     encoder = inputs
     for hl in hidden_layers:
         encoder = keras.layers.Dense(hl, activation='relu')(encoder)
