@@ -36,28 +36,29 @@ def autoencoder(input_dims, filters, latent_dims):
     e_inputs = keras.Input(input_dims)
     d_inputs = keras.Input(latent_dims)
 
-    encoded = e_inputs
+    encoder = e_inputs
     for f in filters:
-        encoded = keras.layers.Conv2D(
-            f, (3, 3), activation='relu', padding='same')(encoded)
-        encoded = keras.layers.MaxPooling2D((2, 2), padding='same')(encoded)
+        encoder = keras.layers.Conv2D(
+            f, (3, 3), activation='relu', padding='same')(encoder)
+        encoder = keras.layers.MaxPooling2D((2, 2), padding='same')(encoder)
 
-    decoded = d_inputs
+    decoder = d_inputs
     for i in reversed(range(1, len(filters))):
-        decoded = keras.layers.Conv2D(
-            filters[i], (3, 3), activation='relu', padding='same')(decoded)
-        decoded = keras.layers.UpSampling2D((2, 2))(decoded)
+        decoder = keras.layers.Conv2D(
+            filters[i], (3, 3), activation='relu', padding='same')(decoder)
+        decoder = keras.layers.UpSampling2D((2, 2))(decoder)
 
-    decoded = keras.layers.Conv2D(
-        filters[0], (3, 3), activation='relu', padding='valid')(decoded)
-    decoded = keras.layers.UpSampling2D((2, 2))(decoded)
-    decoded = keras.layers.Conv2D(input_dims[-1], (3, 3),
-                                  activation='sigmoid', padding='same')(decoded)
+    decoder = keras.layers.Conv2D(
+        filters[0], (3, 3), activation='relu', padding='valid')(decoder)
+    decoder = keras.layers.UpSampling2D((2, 2))(decoder)
+    decoder = keras.layers.Conv2D(input_dims[-1], (3, 3),
+                                  activation='sigmoid',
+                                  padding='same')(decoder)
 
-    encoder = keras.Model(e_inputs, encoded)
-    decoder = keras.Model(d_inputs, decoded)
-    
+    encoder = keras.Model(e_inputs, encoder)
+    decoder = keras.Model(d_inputs, decoder)
+
     auto = keras.Model(e_inputs, decoder(encoder(e_inputs)))
     auto.compile(optimizer="adam", loss="binary_crossentropy")
-   
+
     return encoder, decoder, auto
