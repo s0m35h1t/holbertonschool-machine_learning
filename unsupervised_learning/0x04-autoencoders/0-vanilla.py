@@ -22,18 +22,18 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     """
     inputs = keras.Input((input_dims,))
     
-    encoder = inputs
+    encoded = inputs
     for hl in hidden_layers:
-        encoder = keras.layers.Dense(hl, activation='relu')(encoder)
-    encoder = keras.layers.Dense(latent_dims, activation='relu')(encoder)
+        encoded = keras.layers.Dense(hl, activation='relu')(encoded)
+    encoded = keras.layers.Dense(latent_dims, activation='relu')(encoded)
 
-    decoder = inputs
+    decoded = inputs
     for hl in reversed(hidden_layers):
-        decoder = keras.layers.Dense(hl, activation='relu')(decoder)
-    decoder = keras.layers.Dense(input_dims, activation="sigmoid")(decoder)
+        decoded = keras.layers.Dense(hl, activation='relu')(decoded)
+    decoded = keras.layers.Dense(input_dims, activation="sigmoid")(decoded)
 
-    encoder = keras.Model(inputs, encoder)
-    decoder = keras.Model(inputs, decoder)
+    encoder = keras.Model(inputs, encoded)
+    decoder = keras.Model(inputs, decoded)
 
     auto = keras.Model(inputs, decoder(encoder(inputs)))
     auto.compile(optimizer="adam", loss="binary_crossentropy")
