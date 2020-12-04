@@ -25,11 +25,11 @@ class GRUCell:
             multiplication
             The biases should be initialized as zeros
         """
-        self.Wf = np.random.normal(size=(h + i, h))
-        self.Wu = np.random.normal(size=(h + i, h))
-        self.Wc = np.random.normal(size=(h + i, h))
-        self.Wo = np.random.normal(size=(h + i, h))
-        self.Wy = np.random.normal(size=(h, o))
+        self.Wf = np.random.normal(0, 1, (i + h, h))
+        self.Wu = np.random.normal(0, 1, (i + h, h))
+        self.Wc = np.random.normal(0, 1, (i + h, h))
+        self.Wo = np.random.normal(0, 1, (i + h, h))
+        self.Wy = np.random.normal(0, 1, (h, o))
         self.bf = np.zeros((1, h))
         self.bu = np.zeros((1, h))
         self.bc = np.zeros((1, h))
@@ -62,11 +62,13 @@ class GRUCell:
             y is the output of the cell
         """
         h = np.concatenate((h_prev, x_t), axis=1)
-        f = self.sigmoid(h.dot(self.Wf) + self.bf)
-        u = self.sigmoid(h.dot(self.Wu) + self.bu)
-        c = np.tanh(h.dot(self.Wc) + self.bc)
-        c = f * c_prev + u * c
-        o_t = self.sigmoid(h.dot(self.Wo) + self.bo)
-        h_t = o_t * np.tanh(c)
-        y = h_t.dot(self.Wy) + self.by
-        return h_t, c, np.exp(y) / np.sum(np.exp(y), axis=1, keepdims=True)
+
+        f_t = self.sigmoid(np.dot(h, self.Wf) + self.bf)
+        i_t = self.sigmoid(np.dot(h, self.Wu) + self.bu)
+        c_t = np.tanh(np.dot(h, self.Wc) + self.bc)
+        o_t = self.sigmoid(np.dot(h, self.Wo) + self.bo)
+        c = f_t * c_prev + i_t * c_t
+        h_next = o_t * np.tanh(c)
+        y = np.dot(h_next, self.Wy) + self.by
+
+        return h_next, c, np.exp(y) / np.exp(y).sum(axis=1, keepdims=True)
