@@ -66,8 +66,9 @@ class GRUCell:
         f_t = self.sigmoid(np.dot(h, self.Wf) + self.bf)
         c = f_t * c_prev + \
             self.sigmoid(np.dot(h, self.Wu) + self.bu) * \
-                         np.tanh(np.dot(h, self.Wc) + self.bc)
+            np.tanh(np.dot(h, self.Wc) + self.bc)
+
         h_next = self.sigmoid(np.dot(h, self.Wo) + self.bo) * np.tanh(c)
         y = np.dot(h_next, self.Wy) + self.by
 
-        return h_next, c, np.exp(y) / np.exp(y).sum(axis=1, keepdims=True))
+        return h_next, c, np.exp(y) / np.exp(y).sum(axis=1, keepdims=True)
