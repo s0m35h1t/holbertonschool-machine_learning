@@ -19,7 +19,7 @@ def rnn(rnn_cell, X, h_0):
         Y is a numpy.ndarray containing all of the outputs
     """
     T, m, _ = X.shape
-    h = h_0.shape[1]
+    _, h = h_0.shape[1]
     H = np.zeros((T + 1, m, h))
     Y = np.zeros((T, m, rnn_cell.Wy.shape[1]))
 
