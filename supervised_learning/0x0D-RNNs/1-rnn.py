@@ -19,12 +19,13 @@ def rnn(rnn_cell, X, h_0):
         Y is a numpy.ndarray containing all of the outputs
     """
     T, m, _ = X.shape
-    _, h = h_0.shape[1]
+    o = rnn_cell.by.shape[1]
+    h = h_0.shape[1]
     H = np.zeros((T + 1, m, h))
-    Y = np.zeros((T, m, rnn_cell.Wy.shape[1]))
+    Y = np.zeros((T, m, o))
 
     H[0] = h_0
-    for t in range(T):
-        H[t + 1], Y[t] = rnn_cell.forward(H[t], X[t])
+    for t in range(1, T + 1):
+        H[t], Y[t - 1] = rnn_cell.forward(H[t - 1], X[t - 1])
 
     return H, Y
