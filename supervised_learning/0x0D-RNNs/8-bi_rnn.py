@@ -30,6 +30,6 @@ def bi_rnn(bi_cell, X, h_0, h_t):
     Hb[-1] = h_t
     for i, j in zip(range(T), range(T - 1, -1, -1)):
         Hf[i + 1] = bi_cell.forward(Hf[i], X[i])
-        Hb[j] = bi_cell.backward(Hb[j + 1], X[j]).
+        Hb[j] = bi_cell.backward(Hb[j + 1], X[j])
     H = np.concatenate((Hf[1:], Hb[0:-1]), axis=-1)
     return H, bi_cell.output(H)
