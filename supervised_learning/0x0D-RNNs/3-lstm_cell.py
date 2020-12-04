@@ -61,11 +61,10 @@ class GRUCell:
             c_next is the next cell state
             y is the output of the cell
         """
-        y = np.concatenate((h_prev, x_t), axis=1)
-        f = self.sigmoid(y.dot(self.Wf) + self.bf)
-        c = np.tanh(y.dot(self.Wc) + self.bc)
-        c = f * c_prev + self.sigmoid(y.dot(self.Wu) + self.bu) * c
-        h_t = self.sigmoid(y.dot(self.Wo) + self.bo) * np.tanh(c)
-
+        h = np.concatenate((h_prev, x_t), axis=1)
+        f = self.sigmoid(h.dot(self.Wf) + self.bf)
+        c = np.tanh(h.dot(self.Wc) + self.bc)
+        c = f * c_prev + self.sigmoid(h.dot(self.Wu) + self.bu) * c
+        h_t = self.sigmoid(h.dot(self.Wo) + self.bo) * np.tanh(c)
         y = h_t.dot(self.Wy) + self.by
         return h_t, c, np.exp(y) / np.sum(np.exp(y), axis=1, keepdims=True)
