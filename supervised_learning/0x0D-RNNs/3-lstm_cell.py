@@ -62,12 +62,11 @@ class GRUCell:
             y is the output of the cell
         """
         h = np.concatenate((h_prev, x_t), axis=1)
+        f = self.sigmoid(h.dot(self.Wf) + self.bf)
+        u = self.sigmoid(h.dot(self.Wu) + self.bu)
 
-        f_t = self.sigmoid(np.dot(h, self.Wf) + self.bf)
-        u_t = self.sigmoid(np.dot(h, self.Wu) + self.bu)
-        c_t = np.tanh(np.dot(h, self.Wc) + self.bc)
-        c_next = f_t * c_prev + u_t * c_t
-        h_next = self.sigmoid(np.dot(h, self.Wo) + self.bo) * np.tanh(c_next)
-        y = np.dot(h_next, self.Wy) + self.by
+        c = f * c_prev + u * np.tanh(h.dot(self.Wc) + self.bc)
+        h_t = self.sigmoid(h.dot(self.Wo) + self.bo) * np.tanh(c)
 
-        return h_next, c_next, np.exp(y) / np.exp(y).sum(axis=1, keepdims=True)
+        y = h_t.dot(self.Wy) + self.by
+        return h_t, c, np.exp(y) / np.sum(np.exp(y), axis=1, keepdims=True)
