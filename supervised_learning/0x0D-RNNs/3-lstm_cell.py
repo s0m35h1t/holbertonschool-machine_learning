@@ -25,11 +25,11 @@ class GRUCell:
             multiplication
             The biases should be initialized as zeros
         """
-        self.Wf = np.random.normal(0, 1, (i + h, h))
-        self.Wu = np.random.normal(0, 1, (i + h, h))
-        self.Wc = np.random.normal(0, 1, (i + h, h))
-        self.Wo = np.random.normal(0, 1, (i + h, h))
-        self.Wy = np.random.normal(0, 1, (h, o))
+        self.Wf = np.random.normal(size=(h + i, h))
+        self.Wu = np.random.normal(size=(h + i, h))
+        self.Wc = np.random.normal(size=(h + i, h))
+        self.Wo = np.random.normal(size=(h + i, h))
+        self.Wy = np.random.normal(size=(h, o))
         self.bf = np.zeros((1, h))
         self.bu = np.zeros((1, h))
         self.bc = np.zeros((1, h))
