@@ -60,7 +60,6 @@ class BidirectionalCell:
         h = np.concatenate((h_next, x_t), axis=1)
         return np.tanh(np.dot(h, self.Whb) + self.bhb)
 
-
     def output(self, H):
         """Calculates all outputs for the RNN
         Args:
