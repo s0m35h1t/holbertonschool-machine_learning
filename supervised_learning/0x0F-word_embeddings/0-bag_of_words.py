@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Extract bag of words representation"""
+"""Words representation"""
 
 
 import numpy as np

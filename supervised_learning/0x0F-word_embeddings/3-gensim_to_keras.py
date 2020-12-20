@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Put a gensim word2vec model in a keras embedding layer"""
+"""word2vec model in a keras embedding layer"""
 
 
 from tensorflow import keras

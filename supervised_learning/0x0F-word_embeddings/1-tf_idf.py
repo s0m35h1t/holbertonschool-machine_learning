@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Extract tf_idf representation"""
+"""tf_idf representation"""
 
 
 import numpy as np

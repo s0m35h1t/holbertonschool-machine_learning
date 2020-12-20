@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Train a fasttext model"""
+"""Fasttext model"""
 
 
 from gensim.models import FastText
