@@ -50,6 +50,6 @@ def cumulative_bleu(references, sentence, n):
     if mt > ref:
         b = 1
     else:
-        b = np.exp(np.sum(np.log(bleus) / n))
+        b = np.exp(1 - ref / mt)
 
-    return b * (clips / count)
+    return b * np.exp(np.sum(np.log(bleus) / n)))
