@@ -52,4 +52,4 @@ def cumulative_bleu(references, sentence, n):
     else:
         b = np.exp(1 - ref / mt)
 
-    return b * np.exp(np.sum(np.log(bleus) / n)))
+    return b * np.exp(np.sum(np.log(bleus) / n))
