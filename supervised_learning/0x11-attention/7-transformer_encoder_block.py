@@ -28,14 +28,18 @@ class EncoderBlock(tf.keras.layers.Layer):
             mask - the mask to be applied for multi head attentione
         Returns: output, weights
             outputa tensor with its last two dimensions as
-                (..., seq_len_q, dm) containing the scaled dot product attention
+                (..., seq_len_q, dm) containing the scaled
+                dot product attention
             weights a tensor with its last three dimensions
-                as (..., h, seq_len_q, seq_len_v) containing the attention weights
+                as (..., h, seq_len_q, seq_len_v) containing
+                the attention weights
         """
-        m, _ = self.mha(x, x, x, mask)
-        attn_output = self.dropout1(m, training=training)
+        attn_output, _ = self.mha(x, x, x, mask)
+        attn_output = self.dropout1(attn_output, training=training)
         out1 = self.layernorm1(x + attn_output)
         ffn = tf.keras.Sequential([self.dense_hidden, self.dense_output])
         ffn_output = ffn(out1)
+        ffn_output = self.dropout2(ffn_output, training=training)
+        out2 = self.layernorm2(out1 + ffn_output)
 
-        return self.layernorm2(out1 + self.dropout2(ffn_output, training=training))
+        return out2
