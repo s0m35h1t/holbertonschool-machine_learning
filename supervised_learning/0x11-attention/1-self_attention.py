@@ -14,7 +14,7 @@ class SelfAttention(tf.keras.layers.Layer):
             units is an integer representing
                 the number of hidden units in the alignment model
         """
-        super(SelfAttention, self).__init__()
+        super().__init__()
         self.W = tf.keras.layers.Dense(units)
         self.U = tf.keras.layers.Dense(units)
         self.V = tf.keras.layers.Dense(1)
@@ -33,9 +33,8 @@ class SelfAttention(tf.keras.layers.Layer):
                 that contains the context vector for the decoder
             weights is a tensor of shape
                 (batch, input_seq_len, 1) that contains the attention weights
-
-
         """
-        W = self.W(s_prev)[:, None, :]
-        W += self.U(hidden_states)
-        return tf.math.reduce_sum(W, axis=1), self.V(tf.math.tanh(W))
+
+        softmax = tf.nn.softmax(self.V(tf.nn.tanh(
+            self.W(tf.expand_dims(s_prev, 1)) + self.U(hidden_states))), axis=1)
+        return tf.reduce_sum(softmax * hidden_states, axis=1), softmax
