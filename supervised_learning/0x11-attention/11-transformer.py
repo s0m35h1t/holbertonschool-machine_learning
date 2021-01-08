@@ -45,7 +45,7 @@ class Transformer(tf.keras.layers.Layer):
                 containing the transformer output"""
         enc_output = self.encoder(inputs, training, encoder_mask)
 
-        output, attention_weights = self.decoder(
+        output, weights = self.decoder(
             target, enc_output, training, look_ahead_mask, decoder_mask)
 
         return self.linear(output)
