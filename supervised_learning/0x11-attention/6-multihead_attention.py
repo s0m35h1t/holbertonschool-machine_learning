@@ -27,7 +27,7 @@ class MultiHeadAttention(tf.keras.layers.Layer):
         super(MultiHeadAttention, self).__init__()
         self.h = h
         self.dm = dm
-        self.depth = dm // h
+        self.depth = dm // self.h
         self.Wq = tf.keras.layers.Dense(dm)
         self.Wk = tf.keras.layers.Dense(dm)
         self.Wv = tf.keras.layers.Dense(dm)
@@ -36,10 +36,8 @@ class MultiHeadAttention(tf.keras.layers.Layer):
     def split_heads(self, x, batches):
         """Split the last dimension into (num_heads, depth).
         """
-        x = tf.reshape(x, (batches, -1, self.h, self.depth))
-        return tf.transpose(tf.reshape(x,
-                                       (batches, -1, self.h, self.depth)),
-                            perm=[0, 2, 1, 3])
+        rb = tf.reshape(x, (batches, -1, self.h, self.depth))
+        return tf.transpose(rb, perm=[0, 2, 1, 3])
 
     def call(self, Q, K, V, mask):
         """Keras layer call"""
