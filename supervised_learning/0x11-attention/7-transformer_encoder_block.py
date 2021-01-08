@@ -22,22 +22,21 @@ class EncoderBlock(tf.keras.layers.Layer):
     def call(self, x, training, mask=None):
         """Keras layer call
         Args:
-            Q is a tensor of shape (batch, seq_len_q, dk)
-                containing the input to generate the query matrix
-            K is a tensor of shape (batch, seq_len_v, dk)
-                containing the input to generate the key matrix
-            V is a tensor of shape (batch, seq_len_v, dv)
-                containing the input to generate the value matrix
-            mask is always None
+            x - a tensor of shape (batch, input_seq_len, dm)
+                containing the input to the encoder block
+            training - a boolean to determine if the model is training
+            mask - the mask to be applied for multi head attentione
         Returns: output, weights
             outputa tensor with its last two dimensions as
                 (..., seq_len_q, dm) containing the scaled dot product attention
             weights a tensor with its last three dimensions
                 as (..., h, seq_len_q, seq_len_v) containing the attention weights
         """
-        attn_output = self.dropout1(self.mha(x, x, x, mask), training=training)
+        m, _ = self.mha(x, x, x, mask)
+        attn_output = self.dropout1(m, training=training)
         out1 = self.layernorm1(x + attn_output)
-        seq = tf.keras.Sequential([self.dense_hidden, self.dense_output])
-        seq_output = self.dropout2(seq(out1), training=training)
+        ffn = tf.keras.Sequential([self.dense_hidden, self.dense_output])
+        ffn = ffn(out1)
+        ffn = self.dropout2(ffn, training=training)
 
-        return self.layernorm2(out1 + seq_output)
+        return self.layernorm2(out1 + ffn)
