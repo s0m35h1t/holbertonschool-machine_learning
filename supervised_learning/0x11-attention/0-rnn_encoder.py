@@ -42,12 +42,14 @@ class RNNEncoder(tf.keras.layers.Layer):
         """Keras call
         Args:
              x is a tensor of shape (batch, input_seq_len)
-                containing the input to the encoder layer as word indices within the vocabulary
+                containing the input to the encoder layer
+                as word indices within the vocabulary
             initial is a tensor of shape (batch, units)
                 containing the initial hidden state
         Returns:outputs, hidden
             outputs is a tensor of shape
-                (batch, input_seq_len, units)containing the outputs of the encoder
+                (batch, input_seq_len, units)containing the outputs
+                of the encoder
             hidden is a tensor of shape
                 (batch, units) containing the last hidden state of the encoder
         """
