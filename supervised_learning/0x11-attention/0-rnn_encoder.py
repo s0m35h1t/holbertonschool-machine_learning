@@ -55,4 +55,4 @@ class RNNEncoder(tf.keras.layers.Layer):
             hidden is a tensor of shape
                 (batch, units) containing the last hidden state of the encoder
         """
-        return self.gru(self.embedding(x), initial_state = initial)
+        return self.gru(self.embedding(x), initial_state=initial)
