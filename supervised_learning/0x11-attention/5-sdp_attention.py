@@ -23,10 +23,10 @@ def sdp_attention(Q, K, V, mask=None):
         weights a tensor with its last two dimensions as
             (..., seq_len_q, seq_len_v) containing the attention weights
     """
-    mat = tf.matmul(Q, K, transpose_b=True)
+    m = tf.matmul(Q, K, transpose_b=True)
 
-    scaled_attention = mat / \
-        tf.math.sqrt(tf.cast(tf.shape(K)[-1], tf.float32))
+    cast = tf.cast(tf.shape(K)[-1], tf.float32)
+    scaled_attention = m / tf.math.sqrt(cast)
 
     if mask is not None:
         scaled_attention += (mask * -1e9)
