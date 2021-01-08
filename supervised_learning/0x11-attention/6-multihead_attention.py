@@ -10,7 +10,7 @@ class MultiHeadAttention(tf.keras.layers.Layer):
     """Calculate multi-head attention for a transformer"""
 
     def __init__(self, dm, h):
-        """       
+        """Constructor
         Args:
             dm is an integer representing the dimensionality of the model
             h is an integer representing the number of heads
