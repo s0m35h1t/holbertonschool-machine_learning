@@ -20,11 +20,13 @@ class RNNEncoder(tf.keras.layers.Layer):
             batch is an integer representing
                 the batch size
         """
-        super(RNNEncoder, self).__init__()
+        super().__init__()
         self.batch = batch
         self.units = units
         self.embedding = tf.keras.layers.Embedding(vocab, embedding)
-        self.gru = tf.keras.layers.GRU(units, return_sequences=True,
+        self.gru = tf.keras.layers.GRU(self.units,
+                                       recurrent_initializer='glorot_uniform',
+                                       return_sequences=True,
                                        return_state=True)
 
     def initialize_hidden_state(self):
@@ -53,4 +55,4 @@ class RNNEncoder(tf.keras.layers.Layer):
             hidden is a tensor of shape
                 (batch, units) containing the last hidden state of the encoder
         """
-        return self.gru(self.embedding(x), initial_state=initial)
+        return self.gru(self.embedding(x), initial_state = initial)
