@@ -43,7 +43,9 @@ class Transformer(tf.keras.layers.Layer):
             decoder_mask - the padding mask to be applied to the decoder
         Returns: a tensor of shape (batch, target_seq_len, target_vocab)
                 containing the transformer output"""
-        output = self.encoder(inputs, training, encoder_mask)
-        output = self.decoder(target, output, training, look_ahead_mask,
-                              decoder_mask)
+        enc_output = self.encoder(inputs, training, encoder_mask)
+
+        output, attention_weights = self.decoder(
+            target, enc_output, training, look_ahead_mask, decoder_mask)
+
         return self.linear(output)
