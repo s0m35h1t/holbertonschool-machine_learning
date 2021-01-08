@@ -19,8 +19,11 @@ class RNNDecoder(tf.keras.layers.Layer):
             V - a Dense layer with 1 units,
                 to be applied to the tanh of the sum of the outputs of W and U
         """
+        super().__init__()
         self.embedding = tf.keras.layers.Embedding(vocab, embedding)
-        self.gru = tf.keras.layers.GRU(units, return_sequences=True,
+        self.gru = tf.keras.layers.GRU(units,
+                                       recurrent_initializer='glorot_uniform',
+                                       return_sequences=True,
                                        return_state=True)
         self.F = tf.keras.layers.Dense(vocab)
 
@@ -38,4 +41,9 @@ class RNNDecoder(tf.keras.layers.Layer):
             hidden is a tensor of shape (batch, units) containing
                 the last hidden state of the encoder
         """
-        return None, None
+        attention = SelfAttention(s_prev.shape[1])
+        ctx, weights = attention(s_prev, hidden_states)
+        output, state = self.gru(
+            tf.concat([tf.expand_dims(ctx, 1), self.embedding(x)], -1))
+        output = tf.reshape(output, (-1, output.shape[2]))
+        return (self.F(output), state)
