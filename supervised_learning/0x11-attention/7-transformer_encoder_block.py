@@ -36,7 +36,6 @@ class EncoderBlock(tf.keras.layers.Layer):
         attn_output = self.dropout1(m, training=training)
         out1 = self.layernorm1(x + attn_output)
         ffn = tf.keras.Sequential([self.dense_hidden, self.dense_output])
-        ffn = ffn(out1)
-        ffn = self.dropout2(ffn, training=training)
+        ffn_output = ffn(out1)
 
-        return self.layernorm2(out1 + ffn)
+        return self.layernorm2(out1 + self.dropout2(ffn_output, training=training))
