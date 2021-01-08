@@ -11,6 +11,7 @@ class EncoderBlock(tf.keras.layers.Layer):
 
     def __init__(self, dm, h, hidden, drop_rate=0.1):
         super(EncoderBlock, self).__init__()
+
         self.mha = MultiHeadAttention(dm, h)
         self.dense_hidden = tf.keras.layers.Dense(hidden, activation='relu')
         self.dense_output = tf.keras.layers.Dense(dm)
@@ -34,12 +35,11 @@ class EncoderBlock(tf.keras.layers.Layer):
                 as (..., h, seq_len_q, seq_len_v) containing
                 the attention weights
         """
-        attn_output, _ = self.mha(x, x, x, mask)
-        attn_output = self.dropout1(attn_output, training=training)
-        out1 = self.layernorm1(x + attn_output)
+        m, _ = self.mha(x, x, x, mask)
+        attn_output = self.dropout1(m, training=training)
+        output = self.layernorm1(x + attn_output)
         ffn = tf.keras.Sequential([self.dense_hidden, self.dense_output])
-        ffn_output = ffn(out1)
-        ffn_output = self.dropout2(ffn_output, training=training)
-        out2 = self.layernorm2(out1 + ffn_output)
+        ffn_output = self.dropout2(ffn(output), training=training)
 
-        return out2
+        return self.layernorm2(output +
+                               self.dropout2(ffn_output, training=training))
