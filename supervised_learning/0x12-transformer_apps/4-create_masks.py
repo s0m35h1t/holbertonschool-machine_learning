@@ -9,10 +9,10 @@ def create_masks(inputs, target):
         inputs is a tf.Tensor of shape (batch_size, seq_len_in)
             that contains the input sentence
         target is a tf.Tensor of shape (batch_size, seq_len_out)
-            that contains the target sentence   
+            that contains the target sentence
     Returns: encoder_mask, look_ahead_mask, decoder_mask
             encoder_mask is the tf.Tensor padding mask of shape
-                (batch_size, 1, 1, seq_len_in) to be applied in 
+                (batch_size, 1, 1, seq_len_in) to be applied in
                     he encoder
             look_ahead_mask is the tf.Tensor look ahead mask of shape
                 (batch_size, 1, seq_len_out, seq_len_out)

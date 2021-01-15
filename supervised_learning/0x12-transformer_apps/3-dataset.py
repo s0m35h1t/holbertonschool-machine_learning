@@ -5,6 +5,12 @@ import tensorflow.compat.v2 as tf
 import tensorflow_datasets as tfds
 
 
+def filter_max_length(x, y, max_length=max_len):
+    """Filtring max length"""
+    return tf.logical_and(tf.size(x) <= max_length,
+                          tf.size(y) <= max_length)
+
+
 class Dataset():
     """Dataset"""
 
@@ -20,15 +26,24 @@ class Dataset():
             tokenizer_en is the English tokenizer created from
                 the training set
         """
-        self.data_train = tfds.load('ted_hrlr_translate/pt_to_en',
-                                    split='train', as_supervised=True)
-        self.data_valid = tfds.load('ted_hrlr_translate/pt_to_en',
-                                    split='validation', as_supervised=True)
-        tokenizer_pt, tokenizer_en = self.tokenize_dataset(self.data_train)
+        egs, metadata = tfds.load('ted_hrlr_translate/pt_to_en',
+                                  with_info=True,
+                                  as_supervised=True)
+        data_train, data_valid = egs['train'], egs['validation']
+        tokenizer_pt, tokenizer_en = self.tokenize_dataset(data_train)
         self.tokenizer_pt = tokenizer_pt
         self.tokenizer_en = tokenizer_en
-        self.data_train = data_train.map(self.tf_encode)
-        self.data_valid = data_valid.map(self.tf_encode)
+
+        data_train = data_train.map(self.tf_encode)
+        data_train = data_train.filter(filter_max_length).cache()
+        data_train = data_train.shuffle(metadata.splits['train'].\
+            num_examples).padded_batch(_, padded_shapes=([None], [None]))
+        self.data_train = data_train.prefetch(tf.data.experimental.AUTOTUNE)
+
+        data_valid = data_valid.map(self.tf_encode)
+        data_valid = data_valid.filter(filter_max_length).\
+            padded_batch(_, padded_shapes=([None], [None]))
+        self.data_valid = data_valid
 
     def tokenize_dataset(self, data):
         """creates sub-word tokenizers for our dataset

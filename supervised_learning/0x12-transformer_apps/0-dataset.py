@@ -17,7 +17,7 @@ class Dataset():
                 tf.data.Dataset validate split, loaded as_supervided
             tokenizer_pt is the Portuguese tokenizer created
                 from the training set
-            tokenizer_en is the English tokenizer created from  
+            tokenizer_en is the English tokenizer created from
                 the training set
         """
         self.data_train = tfds.load('ted_hrlr_translate/pt_to_en',
@@ -34,7 +34,8 @@ class Dataset():
             data is a tf.data.Dataset whose examples
             are formatted as a tuple (pt, en)
                 pt is the tf.Tensor containing the Portuguese sentence
-                en is the tf.Tensor containing the corresponding English sentence
+                en is the tf.Tensor containing
+                the corresponding English sentence
         Returns: tokenizer_pt, tokenizer_en
             tokenizer_pt is the Portuguese tokenizer
             tokenizer_en is the English tokenizer
