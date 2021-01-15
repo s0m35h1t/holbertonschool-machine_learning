@@ -73,7 +73,10 @@ class Dataset():
         Args:
             Make sure to set the shape of the pt and en return tensors
         """
-        result_pt, result_en = tf.py_function(self.encode, [pt, en],
+        rslt_pt, rsl_en = tf.py_function(self.encode, [pt, en],
                                               [tf.int64, tf.int64])
 
-        return result_pt.set_shape([None]), result_en.set_shape([None])
+        rslt_pt.set_shape([None])
+        rsl_en.set_shape([None])
+
+        return rslt_pt, rsl_en
