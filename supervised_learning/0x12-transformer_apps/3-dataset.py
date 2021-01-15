@@ -34,10 +34,12 @@ class Dataset():
         self.tokenizer_pt = tokenizer_pt
         self.tokenizer_en = tokenizer_en
 
-        data_train = data_train.map(self.tf_encode)
-        data_train = data_train.filter(filter_max_length).cache()
-        data_train = data_train.shuffle(metadata.splits['train'].\
-            num_examples).padded_batch(_, padded_shapes=([None], [None]))
+        self.data_train = data_train.map(self.tf_encode)
+        data_train = data_train.filter(filter_max_length)
+        data_train = data_train.cache()
+        BUFFER_SIZE = metadata.splits['train'].num_examples
+        self.data_train = data_train.shuffle(BUFFER_SIZE).\
+            padded_batch(_, padded_shapes=([None], [None]))
         self.data_train = data_train.prefetch(tf.data.experimental.AUTOTUNE)
 
         data_valid = data_valid.map(self.tf_encode)
