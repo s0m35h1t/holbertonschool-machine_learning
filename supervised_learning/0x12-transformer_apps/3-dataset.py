@@ -37,13 +37,13 @@ class Dataset():
         self.data_train = data_train.map(self.tf_encode)
         data_train = data_train.filter(filter_max_length)
         data_train = data_train.cache()
-        BUFFER_SIZE = metadata.splits['train'].num_examples
-        self.data_train = data_train.shuffle(BUFFER_SIZE).\
+        size = metadata.splits['train'].num_examples
+        self.data_train = data_train.shuffle(size).\
             padded_batch(_, padded_shapes=([None], [None]))
         self.data_train = data_train.prefetch(tf.data.experimental.AUTOTUNE)
 
-        data_valid = data_valid.map(self.tf_encode)
-        data_valid = data_valid.filter(filter_max_length).\
+        self.data_valid = data_valid.map(self.tf_encode)
+        self.data_valid = data_valid.filter(filter_max_length).\
             padded_batch(_, padded_shapes=([None], [None]))
         self.data_valid = data_valid
 
@@ -90,7 +90,10 @@ class Dataset():
         Args:
             Make sure to set the shape of the pt and en return tensors
         """
-        result_pt, result_en = tf.py_function(self.encode, [pt, en],
-                                              [tf.int64, tf.int64])
+        rslt_pt, rsl_en = tf.py_function(self.encode, [pt, en],
+                                         [tf.int64, tf.int64])
 
-        return result_pt.set_shape([None]), result_en.set_shape([None])
+        rslt_pt.set_shape([None])
+        rsl_en.set_shape([None])
+
+        return rslt_pt, rsl_en
